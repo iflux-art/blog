@@ -12,14 +12,18 @@ export {
   MDXLink,
   MDXBlockquote,
   MDXCode,
-} from "@/features/content/components/mdx";
+} from "@/features/blog/components/mdx";
 
 // ==================== 主题提供者 ====================
-export { ThemeProvider } from "./theme/theme-provider";
+// 主题组件已移动到 features/theme 目录
 
 // ==================== 业务按钮组件 ====================
 export { GitHubButton } from "./button/github-button";
 export { TravelButton } from "./button/travel-button";
+
+// ==================== 卡片组件 ====================
+// 通用卡片组件目录
+export {} from "./cards";
 
 // ==================== UI 组件库 ====================
 export { BackButton } from "./ui/back-button";

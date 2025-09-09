@@ -1,7 +1,7 @@
 /**
  * Navigation 功能模块统一导出
  *
- * 包含面包屑、目录、侧边栏、分页等导航相关功能的公共组件、类型、工具函数等
+ * 包含面包屑、目录、侧边栏等导航相关功能的公共组件、类型、工具函数等
  */
 
 // 类型导出
@@ -17,9 +17,6 @@ export type {
   TocHeading,
   TocProps,
   TableOfContentsCardProps,
-  // 分页相关类型
-  NavDocItem,
-  DocPaginationProps,
   // 基础导航类型
   BaseNavItem,
   NestedNavItem,
@@ -45,11 +42,6 @@ export {
   TableOfContents,
   TableOfContentsCard,
 } from "./components/toc";
-
-export {
-  // 分页组件
-  DocPagination,
-} from "./components/pagination";
 
 // Hooks 导出
 // export {} from "./hooks";

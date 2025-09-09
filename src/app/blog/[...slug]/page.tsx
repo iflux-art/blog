@@ -1,6 +1,6 @@
-import { ThreeColumnLayout } from "@/components/layout";
+import { LayoutContainer } from "@/components/layout";
 import { TableOfContentsCard } from "@/features/navigation";
-import ClientMDXRenderer from "@/features/content/components/mdx/client-mdx-renderer";
+import ClientMDXRenderer from "@/features/blog/components/mdx/client-mdx-renderer";
 import {
   BlogCategoryCard,
   LatestPostsCard,
@@ -9,7 +9,7 @@ import {
 } from "@/features/blog/components";
 import { createBlogBreadcrumbs, getBlogContent } from "@/features/blog/lib";
 import { TwikooComment } from "@/features/comment";
-import { ContentDisplay } from "@/features/content/components/display";
+import { ContentDisplay } from "@/features/blog/components/display";
 import { handleContentError } from "@/lib/error/error-utils";
 import { notFound } from "next/navigation";
 
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
     return (
       <div className="min-h-screen bg-background">
-        <ThreeColumnLayout
+        <LayoutContainer
           leftSidebar={leftSidebar}
           rightSidebar={rightSidebar}
           layout="double-sidebar"
@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <ClientMDXRenderer content={content} />
           </ContentDisplay>
           <TwikooComment />
-        </ThreeColumnLayout>
+        </LayoutContainer>
       </div>
     );
   } catch (error: unknown) {

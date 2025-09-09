@@ -1,5 +1,5 @@
 import type { BaseNavItem } from "@/features/navbar/types";
-import { BookOpen, Info, Link, type LucideIcon } from "lucide-react";
+import { BookOpen, Link, FileText, type LucideIcon } from "lucide-react";
 
 /**
  * 导航配置项接口
@@ -23,16 +23,26 @@ export const NAV_ITEMS = [
     icon: BookOpen,
   },
   {
+    key: "docs",
+    label: "文档",
+    description: "项目文档和使用指南",
+    icon: FileText,
+    external: true,
+    href: "https://docs.iflux.art/",
+  },
+  {
+    key: "nav",
+    label: "导航",
+    description: "网址导航和资源集合",
+    icon: Link,
+    external: true,
+    href: "https://nav.iflux.art/",
+  },
+  {
     key: "friends",
     label: "友链",
     description: "探索我们的合作伙伴和友情链接，发现更多优质资源",
     icon: Link,
-  },
-  {
-    key: "about",
-    label: "关于",
-    description: "了解我们的项目理念和个人主页，探索更多信息",
-    icon: Info,
   },
 ] as const;
 
@@ -53,7 +63,6 @@ const FLAT_NAV_ITEMS: NavConfigItem[] = flattenNavItems(NAV_ITEMS);
 export const NAV_PATHS: Record<string, string> = {
   blog: "/blog",
   friends: "/friends",
-  about: "/about",
 } as const;
 
 /**

@@ -1,6 +1,6 @@
 "use client";
 
-import { ThreeColumnLayout } from "@/components/layout";
+import { LayoutContainer } from "@/components/layout";
 import {
   BlogCategoryCard,
   BlogListContent,
@@ -57,7 +57,7 @@ export const BlogPageContainer = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <ThreeColumnLayout
+      <LayoutContainer
         leftSidebar={leftSidebar}
         rightSidebar={rightSidebar}
         layout="double-sidebar"
@@ -69,7 +69,7 @@ export const BlogPageContainer = () => {
           onCategoryClick={handleCategoryClick}
           onTagClick={handleTagClick}
         />
-      </ThreeColumnLayout>
+      </LayoutContainer>
     </div>
   );
 };

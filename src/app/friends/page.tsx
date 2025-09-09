@@ -1,13 +1,21 @@
 import { AppGrid, PageContainer } from "@/components/layout";
-import friendsData from "@/content/links/friends.json";
+import friendsData from "@/features/friends/data/friends.json";
 import { TwikooComment } from "@/features/comment";
 import { FriendLinkApplication, FriendLinkCard } from "@/features/friends/components";
 import { DEFAULT_FRIENDS_CONFIG, hasFriendsData, processFriendsData } from "@/features/friends/lib";
 import type { FriendLink } from "@/features/friends/types";
 import type { Metadata } from "next";
-import { FRIENDS_PAGE_METADATA } from "@/config";
 
-export const metadata: Metadata = FRIENDS_PAGE_METADATA;
+export const metadata: Metadata = {
+  title: "友情链接",
+  description: "友情链接列表和申请方式",
+  keywords: "友链,网站,合作",
+  openGraph: {
+    title: "友情链接",
+    description: "友情链接列表和申请方式",
+    type: "website",
+  },
+};
 
 const FriendsPage = () => {
   // 处理友链数据

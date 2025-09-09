@@ -2,6 +2,21 @@
  * 博客相关工具函数
  */
 export { getBlogContent } from "./blog-content";
+
+// 从client-utils重新导出客户端安全的函数
+export {
+  formatDate,
+  calculateReadingTime,
+  formatNumber,
+  debounce,
+  throttle,
+  groupByCategory,
+  groupByTag,
+  sortContent,
+  extractHeadings,
+  type TocHeading,
+} from "./client-utils";
+
 import fs from "node:fs";
 import path from "node:path";
 import type { BlogPost } from "@/features/blog/types";

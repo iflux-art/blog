@@ -10,6 +10,17 @@ export {
   TagCloudCard,
   BlogCategoryCard,
   BlogListContent,
+  ContentCard,
+  ContentList,
+  ContentDisplay,
+  CodeBlock,
+  ClientMDXRenderer,
+  MDXComponents,
+  MDXImg,
+  MDXLink,
+  MDXBlockquote,
+  MDXCode,
+  MDXPre,
 } from "./components";
 
 // Hooks 导出
@@ -18,21 +29,51 @@ export {
   useTagCounts,
   useTimelinePosts,
   getAllPosts,
+  useContentSearch,
+  useContentPagination,
+  useContentFilter,
+  useBlogPage,
 } from "./hooks";
 
-// 类型导出 - 使用类型前缀避免冲突
+// 工具函数导出
+export {
+  getBlogContent,
+  formatDate,
+  calculateReadingTime,
+  formatNumber,
+  debounce,
+  throttle,
+  groupByCategory,
+  groupByTag,
+  sortContent,
+  extractHeadings,
+  generateBreadcrumbs,
+  createBlogBreadcrumbs,
+  getAllPosts as getAllBlogPosts,
+  getAllTags,
+  getAllTagsWithCount,
+  getPostsByTag,
+  getPostsByYear,
+} from "./lib";
+
+// 类型导出
 export type {
   BlogPost,
   RelatedPost as BlogRelatedPost,
   TagCount as BlogTagCount,
+  CategoryWithCount,
+  BlogFrontmatter,
+  BlogSearchResult,
+  BlogSearchParams,
+  // 内容相关类型
+  ContentItem,
+  ContentSearchParams,
+  ContentPageState,
+  // Hooks相关类型
+  TagCount as HookTagCount,
+  // 工具函数相关类型
+  TocHeading,
 } from "./types";
 
-export type {
-  TagCount as HookTagCount,
-  BlogResult,
-  UseBlogPostsResult,
-  UseTimelinePostsResult,
-  CategoryWithCount,
-} from "./hooks";
-
-// lib 包含服务端代码，不在客户端导出
+// 注意：已移除 DocPagination 组件的导出，因为翻页功能不再需要
+// 注意：已移除未使用的类型导出（ContentCategory, ContentSearchResult, ContentStats, Url, BaseFrontmatter, BaseContent, BaseCategory）

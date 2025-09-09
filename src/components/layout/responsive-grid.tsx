@@ -28,9 +28,9 @@ interface ResponsiveGridProps {
 /**
  * 响应式网格布局组件
  * 支持三种布局类型：
- * 1. 窄布局(narrow)：主内容占8列
- * 2. 双侧栏布局(double-sidebar)：左右侧栏各占2列，主内容占8列
- * 3. 宽布局(full-width)：主内容占满12列
+ * 1. narrow: 窄布局，主内容占8列
+ * 2. double-sidebar: 双侧栏布局，左右侧栏各占2列，主内容占8列
+ * 3. full-width: 宽布局，主内容占满12列
  */
 export const ResponsiveGrid = ({
   children,
@@ -81,6 +81,3 @@ export const ResponsiveGrid = ({
     </div>
   );
 };
-
-// 为了向后兼容，保留ThreeColumnGrid的导出
-export const ThreeColumnGrid = ResponsiveGrid;

@@ -184,9 +184,9 @@ export interface PageContainerProps {
 }
 
 /**
- * ThreeColumnLayout 组件属性接口
+ * LayoutContainer 组件属性接口
  */
-export interface ThreeColumnLayoutProps {
+export interface LayoutContainerProps {
   /**
    * 左侧边栏内容
    */
@@ -200,17 +200,13 @@ export interface ThreeColumnLayoutProps {
    */
   rightSidebar?: ReactNode;
   /**
+   * 布局类型
+   */
+  layout?: PageLayoutType;
+  /**
    * 自定义类名
    */
   className?: string;
-}
-
-/**
- * 三栏网格布局组件属性接口
- */
-export interface ThreeColumnGridProps {
-  children: ReactNode;
-  sidebars: SidebarConfig[];
 }
 
 /**

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { ThemeToggle } from "@/features/theme/theme-toggle";
 import { useNavbarScroll } from "@/features/navbar/hooks/use-navbar-scroll";
 import { Logo } from "./logo";
 import { NavListMenu } from "./nav-menu";
@@ -11,11 +11,6 @@ const SearchButton = dynamic(
   () => import("@/features/search/components/search-button").then(mod => mod.SearchButton),
   { ssr: false }
 );
-
-// 动态导入汉堡菜单组件
-const HamburgerMenu = dynamic(() => import("./hamburger-menu").then(mod => mod.HamburgerMenu), {
-  ssr: false,
-});
 
 export const MainNavbar = ({ className = "" }: { className?: string }) => {
   const { pageTitle, showTitle, scrollToTop, shouldShowPageTitle, showNavMenu } = useNavbarScroll();
@@ -51,7 +46,6 @@ export const MainNavbar = ({ className = "" }: { className?: string }) => {
         <div className="flex items-center gap-2">
           <SearchButton />
           <ThemeToggle />
-          <HamburgerMenu />
         </div>
       </div>
     </nav>

@@ -8,8 +8,7 @@ export type {
   PageLayoutProps,
   AppGridProps,
   PageContainerProps,
-  ThreeColumnLayoutProps,
-  ThreeColumnGridProps,
+  LayoutContainerProps,
   SidebarWrapperProps,
   GridColsMap,
   GridGapMap,
@@ -33,18 +32,4 @@ export type {
 export type { SiteMetadata, IosConfig, WindowsConfig } from "./config-types";
 
 // Props相关类型
-export type {
-  CardProps,
-  ButtonProps,
-  PageHeaderProps,
-  SearchFilterProps,
-  DataTableColumn,
-  DataTableAction,
-  DataTablePagination,
-  DataTableProps,
-  UserInfo,
-  UserInfoCardProps,
-  AccountDetailsCardProps,
-  TocHeading,
-  TableOfContentsCardProps,
-} from "./props-types";
+export type { TocHeading } from "./props-types";

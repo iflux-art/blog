@@ -8,4 +8,3 @@ export { useFriendsStore } from "./friends-store.standard";
 export { useLayoutStore } from "./layout-store.standard";
 export { useNavbarStore } from "./navbar-store.standard";
 export { useSearchStore } from "./search-store.standard";
-export { useThemeStore } from "./theme-store.standard";

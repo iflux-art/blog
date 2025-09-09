@@ -1,9 +1,7 @@
 import "./globals.css";
 import { Footer } from "@/components/layout";
-import { InitClient } from "@/components/layout/init-client";
 import { MainNavbar } from "@/features/navbar/components/main-navbar";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { RoutePrefetcher } from "@/components/route-prefetcher";
+import { ThemeProvider } from "@/features/theme/theme-provider";
 import React from "react";
 
 /**
@@ -18,9 +16,6 @@ import { generateMetadata, generateViewport } from "@/lib/metadata";
 export const metadata = generateMetadata();
 export const viewport = generateViewport();
 
-// 定义需要预取的关键路由
-const KEY_ROUTES = ["/", "/blog", "/about", "/friends"];
-
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="zh-CN"
@@ -33,10 +28,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
         {/* 页面主体布局容器 */}
         <div className="flex flex-col">
           <MainNavbar className="flex-shrink-0" />
-          {/* 客户端初始化组件 */}
-          <InitClient />
-          {/* 路由预取器 */}
-          <RoutePrefetcher routes={KEY_ROUTES} strategy="idle" />
           {/* 主内容区域 */}
           <main>{children}</main>
           <Footer />

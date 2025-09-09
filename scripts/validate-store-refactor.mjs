@@ -13,18 +13,12 @@ const projectRoot = path.resolve(__dirname, '..');
 
 // 重构的store文件列表
 const storeFiles = [
-  'links-data-store.standard.ts',
   'app-store.standard.ts',
   'blog-page-store.standard.ts',
-  'auth-store.standard.ts',
   'blog-store.standard.ts',
-  'docs-store.standard.ts',
+  'friends-store.standard.ts',
   'layout-store.standard.ts',
   'theme-store.standard.ts',
-  'admin-store.standard.ts',
-  'docs-global-structure-store.standard.ts',
-  'friends-store.standard.ts',
-  'link-filter-store.standard.ts',
   'navbar-store.standard.ts',
   'search-store.standard.ts'
 ];

@@ -106,20 +106,6 @@ export interface TableOfContentsCardProps {
   title?: string;
 }
 
-// ==================== 分页相关类型 ====================
-
-export interface NavDocItem {
-  title: string;
-  path: string;
-  isNext?: boolean;
-  [key: string]: unknown;
-}
-
-export interface DocPaginationProps {
-  prevDoc?: NavDocItem | null;
-  nextDoc?: NavDocItem | null;
-}
-
 // ==================== 基础导航类型 ====================
 
 /** 基础导航项 */

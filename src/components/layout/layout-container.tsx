@@ -1,9 +1,11 @@
+"use client";
+
 import type { ReactNode } from "react";
 import type { PageLayoutType, SidebarConfig } from "@/types";
 import { THREE_COLUMN_LAYOUT_CONFIG } from "@/lib/layout/layout-utils";
 import { PageContainer } from "./page-container";
 
-interface MultiLayoutProps {
+interface LayoutContainerProps {
   /**
    * 左侧边栏内容
    */
@@ -27,20 +29,20 @@ interface MultiLayoutProps {
 }
 
 /**
- * 多布局组件
+ * 统一布局容器组件
  * 提供三种不同的布局选项:
  *
  * 1. narrow: 窄布局，占中间的8列（友链、关于页面）
  * 2. double-sidebar: 双侧栏布局，左右侧栏各占2列，中间主内容区占8列（博客列表、博客详情、文档详情页、导航页面）
  * 3. full-width: 宽布局，占满全部的12列（首页）
  */
-export const MultiLayout = ({
+export const LayoutContainer = ({
   leftSidebar,
   children,
   rightSidebar,
   layout = "double-sidebar",
   className = "",
-}: MultiLayoutProps) => {
+}: LayoutContainerProps) => {
   const sidebars: SidebarConfig[] = [];
 
   // 左侧边栏配置 - 只在双侧栏布局中添加
@@ -67,3 +69,6 @@ export const MultiLayout = ({
     </PageContainer>
   );
 };
+
+export type { LayoutContainerProps } from "@/types";
+export default LayoutContainer;
