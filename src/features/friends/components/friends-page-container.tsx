@@ -2,7 +2,11 @@
 
 import { AppGrid, PageContainer } from "@/components/layout";
 import { TwikooComment } from "@/features/comment";
-import { DEFAULT_FRIENDS_CONFIG, hasFriendsData, processFriendsData } from "../lib";
+import {
+  DEFAULT_FRIENDS_CONFIG,
+  hasFriendsData,
+  processFriendsData,
+} from "../lib";
 import type { FriendLink, FriendsPageConfig } from "../types";
 import { FriendLinkApplication } from "./friend-link-application";
 import { FriendLinkCard } from "./friend-link-card";
@@ -66,7 +70,7 @@ export const FriendsPageContainer = ({
       <div className="pb-8">
         {/* 友链列表网格 */}
         <AppGrid columns={5} className="items-stretch">
-          {friendsItems.map(item => (
+          {friendsItems.map((item) => (
             <FriendLinkCard
               key={item.id}
               title={item.title}

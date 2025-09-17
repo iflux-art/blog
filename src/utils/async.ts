@@ -3,8 +3,8 @@
  * 提供统一的异步操作处理，包括错误处理和加载状态管理
  */
 
+import { classifyError, handleContentError, logError } from "@/lib/error";
 import type { UseAsyncOptions } from "@/types";
-import { logError, handleContentError, classifyError } from "@/lib/error";
 
 /**
  * 异步操作执行器
@@ -12,9 +12,17 @@ import { logError, handleContentError, classifyError } from "@/lib/error";
  */
 export async function executeAsyncOperation<T>(
   operation: () => Promise<T>,
-  options: UseAsyncOptions<T> = {}
+  options: UseAsyncOptions<T> = {},
 ): Promise<T | null> {
-  const { setLoading, setError, onSuccess, onError, contentType, contentId, validator } = options;
+  const {
+    setLoading,
+    setError,
+    onSuccess,
+    onError,
+    contentType,
+    contentId,
+    validator,
+  } = options;
 
   try {
     // 设置加载状态
@@ -95,7 +103,7 @@ export async function executeWithRetry<T>(
   operation: () => Promise<T>,
   maxRetries = 3,
   delay = 1000,
-  options: UseAsyncOptions<T> = {}
+  options: UseAsyncOptions<T> = {},
 ): Promise<T | null> {
   let lastError: unknown;
 
@@ -110,7 +118,7 @@ export async function executeWithRetry<T>(
 
       // 如果不是最后一次重试，等待后继续
       if (i < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, delay * 2 ** i));
+        await new Promise((resolve) => setTimeout(resolve, delay * 2 ** i));
       }
     }
   }

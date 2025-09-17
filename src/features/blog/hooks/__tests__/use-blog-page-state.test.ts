@@ -104,7 +104,7 @@ describe("useBlogPageState", () => {
 
     // Wait for useEffect to run
     await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     expect(mockGetAllPosts).toHaveBeenCalled();
@@ -171,7 +171,10 @@ describe("useBlogPageState", () => {
 
     expect(result.current.filteredPosts).toHaveLength(1);
     // 修复：添加边界检查
-    if (result.current.filteredPosts.length > 0 && result.current.filteredPosts[0]) {
+    if (
+      result.current.filteredPosts.length > 0 &&
+      result.current.filteredPosts[0]
+    ) {
       expect(result.current.filteredPosts[0].category).toBe("test");
     }
   });
@@ -207,7 +210,10 @@ describe("useBlogPageState", () => {
 
     expect(result.current.filteredPosts).toHaveLength(1);
     // 修复：添加边界检查
-    if (result.current.filteredPosts.length > 0 && result.current.filteredPosts[0]) {
+    if (
+      result.current.filteredPosts.length > 0 &&
+      result.current.filteredPosts[0]
+    ) {
       expect(result.current.filteredPosts[0].tags).toContain("tag1");
     }
   });

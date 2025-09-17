@@ -54,15 +54,15 @@ export const createNavbarStore = () => {
   return create<NavbarStore>()((set, _get) => {
     // 创建防抖的滚动处理函数
     const debouncedSetState = debounceSync((newState: Partial<NavbarState>) => {
-      set(state => ({ ...state, ...newState }));
+      set((state) => ({ ...state, ...newState }));
     }, NAVBAR_STATE_CONFIG.debounceTime);
 
     return {
       ...initialState,
 
       // Actions
-      setScrollPosition: position => {
-        set(state => {
+      setScrollPosition: (position) => {
+        set((state) => {
           const distance = Math.abs(position - state.position);
           if (distance < NAVBAR_STATE_CONFIG.scrollThreshold) {
             return {};
@@ -79,7 +79,9 @@ export const createNavbarStore = () => {
             position,
             direction: newDirection,
             showTitle: shouldShowTitle,
-            lastDirectionChange: shouldUpdateDirection ? Date.now() : state.lastDirectionChange,
+            lastDirectionChange: shouldUpdateDirection
+              ? Date.now()
+              : state.lastDirectionChange,
           });
 
           return {
@@ -88,7 +90,7 @@ export const createNavbarStore = () => {
         });
       },
 
-      setPageTitle: pageTitle => set({ pageTitle }),
+      setPageTitle: (pageTitle) => set({ pageTitle }),
 
       scrollToTop: () => {
         window.scrollTo({ top: 0, behavior: "smooth" });

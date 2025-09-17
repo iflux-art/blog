@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import type React from "react";
 
 type MDXImgProps = {
   src: string;
@@ -30,8 +30,14 @@ export const MDXImg = ({
       width={width}
       height={height}
       className={`my-6 w-full max-w-full rounded-lg border border-border bg-muted object-cover shadow-md ${className}`}
-      style={isRemote ? undefined : { position: "relative", aspectRatio: "16/9" }}
-      sizes={isRemote ? undefined : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+      style={
+        isRemote ? undefined : { position: "relative", aspectRatio: "16/9" }
+      }
+      sizes={
+        isRemote
+          ? undefined
+          : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      }
       {...props}
     />
   );

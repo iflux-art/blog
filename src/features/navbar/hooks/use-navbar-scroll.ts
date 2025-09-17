@@ -53,7 +53,7 @@ export function useNavbarScroll() {
     (_: Event) => {
       setScrollPosition(window.scrollY);
     },
-    [setScrollPosition]
+    [setScrollPosition],
   );
 
   const throttledHandleScroll = useMemo(() => {
@@ -154,7 +154,12 @@ export function useNavbarScroll() {
 
   // 监听 DOM 变化，确保动态内容加载后能获取到标题
   useEffect(() => {
-    if (typeof window === "undefined" || !isInitialized || !shouldShowPageTitle()) return;
+    if (
+      typeof window === "undefined" ||
+      !isInitialized ||
+      !shouldShowPageTitle()
+    )
+      return;
 
     const observer = new MutationObserver(() => {
       updatePageTitle();

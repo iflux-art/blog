@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { formatDate, formatNumber } from "@/features/blog/lib/client-utils";
 import type { ContentItem } from "@/features/blog/types";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils";
 
 export interface ContentCardProps {
@@ -38,7 +44,7 @@ export function ContentCard({
       className={cn(
         "h-full overflow-hidden transition-all hover:shadow-lg",
         onClick ? "cursor-pointer" : "",
-        className
+        className,
       )}
       onClick={onClick}
     >
@@ -47,7 +53,7 @@ export function ContentCard({
           <Link
             href={item.slug}
             className="hover:text-primary transition-colors"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             {item.title}
           </Link>
@@ -55,7 +61,9 @@ export function ContentCard({
       </CardHeader>
       <CardContent className="pb-3">
         {showExcerpt && item.excerpt && (
-          <p className="text-muted-foreground text-sm line-clamp-2">{item.excerpt}</p>
+          <p className="text-muted-foreground text-sm line-clamp-2">
+            {item.excerpt}
+          </p>
         )}
         <div className="flex flex-wrap gap-2 mt-3">
           {showCategory && item.category && (
@@ -65,7 +73,7 @@ export function ContentCard({
           )}
           {showTags &&
             item.tags &&
-            item.tags.map(tag => (
+            item.tags.map((tag) => (
               <Badge key={tag} variant="outline" className="text-xs">
                 {tag}
               </Badge>

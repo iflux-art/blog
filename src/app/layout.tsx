@@ -1,8 +1,8 @@
 import "./globals.css";
+import type React from "react";
 import { Footer } from "@/components/layout";
 import { MainNavbar } from "@/features/navbar/components/main-navbar";
 import { ThemeProvider } from "@/features/theme/theme-provider";
-import React from "react";
 
 /**
  * 导入集中管理的元数据配置
@@ -24,7 +24,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   >
     <head />
     <body>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         {/* 页面主体布局容器 */}
         <div className="flex flex-col">
           <MainNavbar className="flex-shrink-0" />

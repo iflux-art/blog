@@ -1,7 +1,7 @@
+import { Calculator, Calendar, Clock } from "lucide-react";
+import type React from "react";
 import { Breadcrumb } from "@/features/navigation";
 import { cn } from "@/utils";
-import { Calculator, Calendar, Clock } from "lucide-react";
-import React from "react";
 
 /** 内容显示类型 */
 export type ContentType = "blog" | "docs";
@@ -74,7 +74,7 @@ export const ContentDisplay = ({
         "rounded-lg border bg-card text-card-foreground shadow-sm",
         // 响应式内边距，与博客卡片保持一致
         "p-3 sm:p-4 md:p-5 lg:p-6",
-        className
+        className,
       )}
     >
       {/* 面包屑导航 */}
@@ -85,7 +85,9 @@ export const ContentDisplay = ({
       )}
 
       <header className="mb-8">
-        <h1 className="mb-8 text-4xl font-bold tracking-tight sm:text-5xl">{title}</h1>
+        <h1 className="mb-8 text-4xl font-bold tracking-tight sm:text-5xl">
+          {title}
+        </h1>
         <div className="flex flex-wrap items-center gap-y-2 text-sm font-medium text-muted-foreground">
           {/* 发布日期和更新日期 */}
           {(date || updatedAt) && (

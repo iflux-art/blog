@@ -1,10 +1,10 @@
 "use client";
 
-import { NAV_ITEMS, NAV_PATHS } from "./nav-config";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
 import type { NavConfigItem } from "./nav-config";
+import { NAV_ITEMS, NAV_PATHS } from "./nav-config";
 
 interface NavListMenuProps {
   className?: string;
@@ -18,14 +18,20 @@ export const NavListMenu = ({ className = "" }: NavListMenuProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className={cn("flex items-center gap-6", className)} aria-label="主导航">
-      {NAV_ITEMS.map(item => {
+    <nav
+      className={cn("flex items-center gap-6", className)}
+      aria-label="主导航"
+    >
+      {NAV_ITEMS.map((item) => {
         // 类型断言确保 item 包含 external 和 href 属性
         const navItem = item as NavConfigItem;
         // 处理外部链接
-        const href = navItem.external ? navItem.href! : NAV_PATHS[navItem.key] || `/${navItem.key}`;
+        const href = navItem.external
+          ? navItem.href || ""
+          : NAV_PATHS[navItem.key] || `/${navItem.key}`;
         const isActive =
-          !navItem.external && (pathname === href || (href !== "/" && pathname.startsWith(href)));
+          !navItem.external &&
+          (pathname === href || (href !== "/" && pathname.startsWith(href)));
 
         return (
           <Link
@@ -33,7 +39,7 @@ export const NavListMenu = ({ className = "" }: NavListMenuProps) => {
             href={href}
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
-              isActive ? "text-primary" : "text-muted-foreground"
+              isActive ? "text-primary" : "text-muted-foreground",
             )}
             aria-current={isActive ? "page" : undefined}
             target={navItem.external ? "_blank" : undefined}

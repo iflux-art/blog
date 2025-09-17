@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, type StateStorage } from "zustand/middleware";
+import {
+  createJSONStorage,
+  persist,
+  type StateStorage,
+} from "zustand/middleware";
 import type { CustomStorageApi } from "@/lib/storage/index";
 import { createResetFunction as sharedCreateResetFunction } from "@/utils/store";
 
@@ -41,7 +45,7 @@ export const createStore = (storage?: StateStorage | CustomStorageApi) => {
             ...initialState,
 
             // Actions
-            setExample: value => set({ example: value }),
+            setExample: (value) => set({ example: value }),
             resetState: () => set(resetState()),
 
             // 派生状态通过getter函数实现
@@ -53,14 +57,14 @@ export const createStore = (storage?: StateStorage | CustomStorageApi) => {
             name: "store-name", // 持久化存储的键名
             storage: createJSONStorage(() => storage as StateStorage),
             // partialize: (state) => ({ example: state.example }), // 选择需要持久化的状态
-          }
-        )
+          },
+        ),
       )
     : create<Store>()((set, _get) => ({
         ...initialState,
 
         // Actions
-        setExample: value => set({ example: value }),
+        setExample: (value) => set({ example: value }),
         resetState: () => set(resetState()),
 
         // 派生状态通过getter函数实现

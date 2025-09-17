@@ -1,0 +1,6 @@
+ WARN  Unsupported engine: wanted: {"node":"20.x"} (current: {"node":"v23.10.0","pnpm":"9.11.0"})
+
+> blog@1.0.0 lint C:\project\ifa\apps\blog
+> biome lint .
+
+Checked 187 files in 140ms. No fixes applied.

@@ -1,12 +1,12 @@
 "use client";
 
-import { useMDXComponents } from "@/features/blog/components/mdx/mdx-components";
 import { evaluateSync } from "@mdx-js/mdx";
 import { MDXProvider } from "@mdx-js/react";
 import matter from "gray-matter";
 import { useMemo } from "react";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
+import { useMDXComponents } from "@/features/blog/components/mdx/mdx-components";
 
 interface Props {
   content: string;

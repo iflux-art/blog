@@ -51,7 +51,7 @@ export function formatNumber(num: number): string {
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: NodeJS.Timeout | null;
   return (...args: Parameters<T>) => {
@@ -73,7 +73,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
  */
 export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
   let inThrottle = false;
   return (...args: Parameters<T>) => {
@@ -92,7 +92,9 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
  * @param items 内容项数组
  * @returns 按分类分组的对象
  */
-export function groupByCategory<T extends { category?: string }>(items: T[]): Record<string, T[]> {
+export function groupByCategory<T extends { category?: string }>(
+  items: T[],
+): Record<string, T[]> {
   return items.reduce(
     (acc, item) => {
       const category = item.category || "未分类";
@@ -102,7 +104,7 @@ export function groupByCategory<T extends { category?: string }>(items: T[]): Re
       acc[category].push(item);
       return acc;
     },
-    {} as Record<string, T[]>
+    {} as Record<string, T[]>,
   );
 }
 
@@ -111,11 +113,13 @@ export function groupByCategory<T extends { category?: string }>(items: T[]): Re
  * @param items 内容项数组
  * @returns 按标签分组的对象
  */
-export function groupByTag<T extends { tags?: string[] }>(items: T[]): Record<string, T[]> {
+export function groupByTag<T extends { tags?: string[] }>(
+  items: T[],
+): Record<string, T[]> {
   return items.reduce(
     (acc, item) => {
       const tags = item.tags || ["未标签"];
-      tags.forEach(tag => {
+      tags.forEach((tag) => {
         if (!acc[tag]) {
           acc[tag] = [];
         }
@@ -123,7 +127,7 @@ export function groupByTag<T extends { tags?: string[] }>(items: T[]): Record<st
       });
       return acc;
     },
-    {} as Record<string, T[]>
+    {} as Record<string, T[]>,
   );
 }
 
@@ -134,7 +138,11 @@ export function groupByTag<T extends { tags?: string[] }>(items: T[]): Record<st
  * @param order 排序顺序
  * @returns 排序后的内容项数组
  */
-export function sortContent<T>(items: T[], sortBy: keyof T, order: "asc" | "desc" = "desc"): T[] {
+export function sortContent<T>(
+  items: T[],
+  sortBy: keyof T,
+  order: "asc" | "desc" = "desc",
+): T[] {
   return [...items].sort((a, b) => {
     const aValue = a[sortBy];
     const bValue = b[sortBy];
@@ -144,7 +152,9 @@ export function sortContent<T>(items: T[], sortBy: keyof T, order: "asc" | "desc
     if (bValue == null) return order === "asc" ? 1 : -1;
 
     if (typeof aValue === "string" && typeof bValue === "string") {
-      return order === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      return order === "asc"
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
     }
 
     if (typeof aValue === "number" && typeof bValue === "number") {
@@ -214,15 +224,15 @@ export function extractHeadings(content: string): {
   }
 
   // 确保所有标题都有唯一ID
-  headings.forEach(heading => {
+  headings.forEach((heading) => {
     const escapedText = escapeRegExp(heading.text);
     const headingRegex = new RegExp(
       `^(#{${heading.level}})\\s+(?:\\[[^\\]]+\\]\\([^)]+\\)|${escapedText})(?:\\s*{#[\\w-]+})?$`,
-      "gm"
+      "gm",
     );
     processedContent = processedContent.replace(
       headingRegex,
-      `$1 ${heading.text} {#${heading.id}}`
+      `$1 ${heading.text} {#${heading.id}}`,
     );
   });
 

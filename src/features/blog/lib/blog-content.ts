@@ -27,7 +27,7 @@ export function getBlogContent(slug: string[]): {
   const filePath = findBlogFile(slug);
   if (!filePath) {
     throw new Error(
-      `Blog not found: ${slug.join("/")}. The requested blog post does not exist or has been removed.`
+      `Blog not found: ${slug.join("/")}. The requested blog post does not exist or has been removed.`,
     );
   }
   const fileContent = fs.readFileSync(filePath, "utf8");
@@ -41,14 +41,20 @@ export function getBlogContent(slug: string[]): {
   const currentSlugStr = slug.join("/");
 
   // Calculate related posts
-  const candidates = allMeta.filter(item => item.slug.join("/") !== currentSlugStr);
-  let related = candidates.filter(item => {
+  const candidates = allMeta.filter(
+    (item) => item.slug.join("/") !== currentSlugStr,
+  );
+  let related = candidates.filter((item) => {
     if (!item.frontmatter.tags) return false;
-    return item.frontmatter.tags.some((tag: string) => currentTags.includes(tag));
+    return item.frontmatter.tags.some((tag: string) =>
+      currentTags.includes(tag),
+    );
   });
 
   if (related.length < 10 && currentCategory) {
-    const more = candidates.filter(item => item.frontmatter.category === currentCategory);
+    const more = candidates.filter(
+      (item) => item.frontmatter.category === currentCategory,
+    );
     related = related.concat(more);
   }
 
@@ -57,7 +63,7 @@ export function getBlogContent(slug: string[]): {
     related = related.concat(more);
   }
 
-  const relatedPosts = related.slice(0, 10).map(item => ({
+  const relatedPosts = related.slice(0, 10).map((item) => ({
     title: item.frontmatter.title ?? item.slug.join("/"),
     href: `/blog/${item.slug.join("/")}`,
     category: item.frontmatter.category,
@@ -66,14 +72,18 @@ export function getBlogContent(slug: string[]): {
 
   // Calculate latest posts
   const latestPosts = candidates
-    .filter(item => item.frontmatter.date)
+    .filter((item) => item.frontmatter.date)
     .sort((a, b) => {
-      const dateA = a.frontmatter.date ? new Date(a.frontmatter.date).getTime() : 0;
-      const dateB = b.frontmatter.date ? new Date(b.frontmatter.date).getTime() : 0;
+      const dateA = a.frontmatter.date
+        ? new Date(a.frontmatter.date).getTime()
+        : 0;
+      const dateB = b.frontmatter.date
+        ? new Date(b.frontmatter.date).getTime()
+        : 0;
       return dateB - dateA;
     })
     .slice(0, 5)
-    .map(item => ({
+    .map((item) => ({
       title: item.frontmatter.title ?? item.slug.join("/"),
       href: `/blog/${item.slug.join("/")}`,
       date: item.frontmatter.date?.toString(),
@@ -82,7 +92,7 @@ export function getBlogContent(slug: string[]): {
 
   // Calculate all tags
   const tagCounts: Record<string, number> = {};
-  allMeta.forEach(item => {
+  allMeta.forEach((item) => {
     item.frontmatter.tags?.forEach((tag: string) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
@@ -93,7 +103,7 @@ export function getBlogContent(slug: string[]): {
 
   // Calculate all categories
   const categoryCounts: Record<string, number> = {};
-  allMeta.forEach(item => {
+  allMeta.forEach((item) => {
     if (item.frontmatter.category) {
       categoryCounts[item.frontmatter.category] =
         (categoryCounts[item.frontmatter.category] || 0) + 1;
@@ -147,11 +157,14 @@ export function getAllBlogMeta(): {
 
   const scanDirectory = (dir: string) => {
     const items = fs.readdirSync(dir, { withFileTypes: true });
-    items.forEach(item => {
+    items.forEach((item) => {
       const itemPath = path.join(dir, item.name);
       if (item.isDirectory()) {
         scanDirectory(itemPath);
-      } else if (item.isFile() && (item.name.endsWith(".mdx") || item.name.endsWith(".md"))) {
+      } else if (
+        item.isFile() &&
+        (item.name.endsWith(".mdx") || item.name.endsWith(".md"))
+      ) {
         files.push(itemPath);
       }
     });
@@ -159,7 +172,7 @@ export function getAllBlogMeta(): {
 
   scanDirectory(blogDir);
 
-  return files.map(filePath => {
+  return files.map((filePath) => {
     const fileContent = fs.readFileSync(filePath, "utf8");
     const { data } = matter(fileContent);
     const relativePath = path.relative(blogDir, filePath);

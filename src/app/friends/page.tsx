@@ -1,10 +1,17 @@
-import { AppGrid, PageContainer } from "@/components/layout";
-import friendsData from "@/features/friends/data/friends.json";
-import { TwikooComment } from "@/features/comment";
-import { FriendLinkApplication, FriendLinkCard } from "@/features/friends/components";
-import { DEFAULT_FRIENDS_CONFIG, hasFriendsData, processFriendsData } from "@/features/friends/lib";
-import type { FriendLink } from "@/features/friends/types";
 import type { Metadata } from "next";
+import { AppGrid, PageContainer } from "@/components/layout";
+import { TwikooComment } from "@/features/comment";
+import {
+  FriendLinkApplication,
+  FriendLinkCard,
+} from "@/features/friends/components";
+import friendsData from "@/features/friends/data/friends.json";
+import {
+  DEFAULT_FRIENDS_CONFIG,
+  hasFriendsData,
+  processFriendsData,
+} from "@/features/friends/lib";
+import type { FriendLink } from "@/features/friends/types";
 
 export const metadata: Metadata = {
   title: "友情链接",
@@ -28,7 +35,9 @@ const FriendsPage = () => {
       <PageContainer config={{ layout: "narrow" }}>
         <div className="flex min-h-[50vh] items-center justify-center">
           <div className="text-center">
-            <h1 className="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl">友情链接</h1>
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              友情链接
+            </h1>
             <p className="mb-4 text-muted-foreground">暂无友情链接</p>
             <a
               href={config.application.formUrl}
@@ -49,7 +58,7 @@ const FriendsPage = () => {
       <div>
         {/* 友链列表网格 */}
         <AppGrid columns={4} className="items-stretch">
-          {friendsItems.map(item => (
+          {friendsItems.map((item) => (
             <FriendLinkCard
               key={item.id}
               title={item.title}

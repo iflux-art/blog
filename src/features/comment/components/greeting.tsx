@@ -1,8 +1,8 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { getRandomGreeting } from "@/features/comment/lib";
 import type { GreetingProps } from "@/features/comment/types";
-import { useCallback, useEffect, useState } from "react";
 
 /**
  * 问候语组件
@@ -25,7 +25,7 @@ export const Greeting = ({ className }: GreetingProps) => {
     <button
       className={`mb-5 cursor-pointer text-xl font-normal text-muted-foreground transition-colors hover:text-muted-foreground/70 md:text-2xl ${className ?? ""}`}
       onClick={refreshGreeting}
-      onKeyDown={e => e.key === "Enter" && refreshGreeting()}
+      onKeyDown={(e) => e.key === "Enter" && refreshGreeting()}
       title="点击刷新问候语"
       type="button"
     >

@@ -1,17 +1,17 @@
+import { notFound } from "next/navigation";
 import { LayoutContainer } from "@/components/layout";
-import { TableOfContentsCard } from "@/features/navigation";
-import ClientMDXRenderer from "@/features/blog/components/mdx/client-mdx-renderer";
 import {
   BlogCategoryCard,
   LatestPostsCard,
   RelatedPostsCard,
   TagCloudCard,
 } from "@/features/blog/components";
+import { ContentDisplay } from "@/features/blog/components/display";
+import ClientMDXRenderer from "@/features/blog/components/mdx/client-mdx-renderer";
 import { createBlogBreadcrumbs, getBlogContent } from "@/features/blog/lib";
 import { TwikooComment } from "@/features/comment";
-import { ContentDisplay } from "@/features/blog/components/display";
+import { TableOfContentsCard } from "@/features/navigation";
 import { handleContentError } from "@/lib/error/error-utils";
-import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -64,7 +64,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           enableRouting
           showHeader={false}
         />
-        <TagCloudCard allTags={allTags} selectedTag={undefined} useDefaultRouting />
+        <TagCloudCard
+          allTags={allTags}
+          selectedTag={undefined}
+          useDefaultRouting
+        />
       </>
     );
 

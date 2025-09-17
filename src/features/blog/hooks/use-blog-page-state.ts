@@ -1,9 +1,9 @@
 "use client";
 
-import { getAllPosts } from "@/features/blog/hooks/index";
-import type { BlogPost, CategoryWithCount } from "@/features/blog/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { getAllPosts } from "@/features/blog/hooks/index";
+import type { BlogPost, CategoryWithCount } from "@/features/blog/types";
 import { useBlogPageStore } from "@/stores";
 // 导入新的异步操作工具
 import { executeAsyncOperation } from "@/utils/async";
@@ -51,8 +51,16 @@ export function useBlogPageState(): UseBlogPageStateReturn {
   const searchParams = useSearchParams();
 
   // 从 Zustand store 获取状态和动作
-  const { posts, loading, category, tag, setPosts, setLoading, setCategory, setTag } =
-    useBlogPageStore();
+  const {
+    posts,
+    loading,
+    category,
+    tag,
+    setPosts,
+    setLoading,
+    setCategory,
+    setTag,
+  } = useBlogPageStore();
 
   // 加载文章数据
   const loadPosts = useCallback(async () => {
@@ -63,7 +71,7 @@ export function useBlogPageState(): UseBlogPageStateReturn {
 
     await executeAsyncOperation(operation, {
       setLoading,
-      onSuccess: data => {
+      onSuccess: (data) => {
         setPosts(data);
       },
       contentType: "blog",
@@ -91,7 +99,7 @@ export function useBlogPageState(): UseBlogPageStateReturn {
   }, [searchParams, setCategory, setTag]);
 
   // 过滤文章
-  const filteredPosts = posts.filter(post => {
+  const filteredPosts = posts.filter((post) => {
     if (category && post.category !== category) return false;
     if (tag && !post.tags?.includes(tag)) return false;
     return true;
@@ -99,9 +107,10 @@ export function useBlogPageState(): UseBlogPageStateReturn {
 
   // 分类统计
   const categoriesCount: Record<string, number> = {};
-  posts.forEach(post => {
+  posts.forEach((post) => {
     if (post.category) {
-      categoriesCount[post.category] = (categoriesCount[post.category] || 0) + 1;
+      categoriesCount[post.category] =
+        (categoriesCount[post.category] || 0) + 1;
     }
   });
 
@@ -111,14 +120,14 @@ export function useBlogPageState(): UseBlogPageStateReturn {
 
   // 标签统计
   const postsCount: Record<string, number> = {};
-  posts.forEach(post => {
-    post.tags?.forEach(tag => {
+  posts.forEach((post) => {
+    post.tags?.forEach((tag) => {
       postsCount[tag] = (postsCount[tag] || 0) + 1;
     });
   });
 
   // 相关文章（取最新的10篇）
-  const relatedPosts = posts.slice(0, 10).map(post => ({
+  const relatedPosts = posts.slice(0, 10).map((post) => ({
     title: post.title,
     href: `/blog/${post.slug}`,
     category: post.category,
@@ -127,9 +136,9 @@ export function useBlogPageState(): UseBlogPageStateReturn {
 
   // 最新发布的文章
   const latestPosts = posts
-    .filter(post => post.date)
+    .filter((post) => post.date)
     .slice(0, 5)
-    .map(post => ({
+    .map((post) => ({
       title: post.title,
       href: `/blog/${post.slug}`,
       date: post.date?.toString(),

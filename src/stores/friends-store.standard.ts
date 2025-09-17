@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import type {
   FriendLink,
-  FriendsPageConfig,
   FriendLinkRequirement,
+  FriendsPageConfig,
 } from "@/features/friends/types";
 
 // 状态接口
@@ -75,12 +75,12 @@ export const createFriendsStore = () => {
     searchTerm: "",
 
     // Actions
-    setFriendsItems: items => set({ friendsItems: items }),
-    setLoading: loading => set({ loading }),
-    setError: error => set({ error }),
-    setConfig: config => set({ config }),
-    setRequirements: requirements => set({ requirements }),
-    setSearchTerm: term => set({ searchTerm: term }),
+    setFriendsItems: (items) => set({ friendsItems: items }),
+    setLoading: (loading) => set({ loading }),
+    setError: (error) => set({ error }),
+    setConfig: (config) => set({ config }),
+    setRequirements: (requirements) => set({ requirements }),
+    setSearchTerm: (term) => set({ searchTerm: term }),
     resetState: () => set({ ...initialState }),
   }));
 };

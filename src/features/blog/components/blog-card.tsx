@@ -6,12 +6,12 @@
 
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/utils";
 
 // 内联文章卡片相关类型定义
 interface BlogCardProps {
@@ -39,7 +39,7 @@ const CategoryBadge = ({ category, onCategoryClick }: CategoryBadgeProps) => (
     <Badge
       variant="secondary"
       className="min-h-[28px] cursor-pointer touch-manipulation px-3 py-1 text-xs font-medium transition-colors hover:bg-primary hover:text-primary-foreground"
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         onCategoryClick?.(category);
@@ -58,12 +58,12 @@ interface TagBadgesProps {
 
 const TagBadges = ({ tags, onTagClick }: TagBadgesProps) => (
   <div className="mb-2 flex flex-wrap gap-1.5 sm:mb-3 sm:gap-2">
-    {tags.map(tag => (
+    {tags.map((tag) => (
       <Badge
         key={tag}
         variant="outline"
         className="min-h-[24px] cursor-pointer touch-manipulation border-muted-foreground/20 px-2 py-1 text-xs transition-colors hover:border-primary/30 hover:bg-accent/50"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           onTagClick?.(tag);
@@ -92,7 +92,7 @@ const CoverImage = ({ cover, title }: CoverImageProps) => (
       fill
       className="object-cover transition-transform duration-300 group-hover:scale-105"
       sizes="(max-width: 1024px) 0vw, 45vw"
-      onError={e => {
+      onError={(e) => {
         // 图片加载失败时隐藏图片容器
         const img = e.target as HTMLImageElement;
         const container = img.closest("div");
@@ -124,7 +124,7 @@ export const BlogCard = forwardRef<HTMLAnchorElement, BlogCardProps>(
       onCategoryClick,
       onTagClick,
     },
-    ref
+    ref,
   ) => (
     <Link ref={ref} href={href} className="block h-full">
       <Card
@@ -134,7 +134,7 @@ export const BlogCard = forwardRef<HTMLAnchorElement, BlogCardProps>(
           "touch-manipulation active:scale-[0.98]",
           // 移动端最小高度确保一致性
           "h-[240px]",
-          className
+          className,
         )}
       >
         <div className="flex h-full">
@@ -144,11 +144,16 @@ export const BlogCard = forwardRef<HTMLAnchorElement, BlogCardProps>(
               "flex flex-1 flex-col p-3 sm:p-4 md:p-5 lg:p-6",
               // 移动端始终占满宽度，桌面端根据是否有封面调整
               "w-full",
-              cover ? "lg:w-auto lg:flex-1" : ""
+              cover ? "lg:w-auto lg:flex-1" : "",
             )}
           >
             {/* Category Badge - Above title */}
-            {category && <CategoryBadge category={category} onCategoryClick={onCategoryClick} />}
+            {category && (
+              <CategoryBadge
+                category={category}
+                onCategoryClick={onCategoryClick}
+              />
+            )}
 
             {/* Title */}
             <h2 className="mb-2 line-clamp-2 text-lg leading-tight font-bold transition-colors group-hover:text-primary sm:mb-3 sm:text-xl">
@@ -163,7 +168,9 @@ export const BlogCard = forwardRef<HTMLAnchorElement, BlogCardProps>(
             )}
 
             {/* Tags */}
-            {tags.length > 0 && <TagBadges tags={tags} onTagClick={onTagClick} />}
+            {tags.length > 0 && (
+              <TagBadges tags={tags} onTagClick={onTagClick} />
+            )}
 
             {/* Spacer to push date to bottom */}
             <div className="flex-1" />
@@ -179,7 +186,7 @@ export const BlogCard = forwardRef<HTMLAnchorElement, BlogCardProps>(
         </div>
       </Card>
     </Link>
-  )
+  ),
 );
 
 BlogCard.displayName = "BlogCard";

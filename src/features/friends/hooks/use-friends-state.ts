@@ -1,22 +1,22 @@
 "use client";
 
-import type {
-  FriendLink,
-  FriendsPageConfig,
-  FriendLinkRequirement,
-} from "@/features/friends/types";
 import { useCallback, useMemo } from "react";
-import { useFriendsStore } from "@/stores";
 import {
   DEFAULT_FRIENDS_CONFIG,
   FRIEND_LINK_REQUIREMENTS,
   processFriendsData,
 } from "@/features/friends/lib";
+import type {
+  FriendLink,
+  FriendLinkRequirement,
+  FriendsPageConfig,
+} from "@/features/friends/types";
+import { useFriendsStore } from "@/stores";
 // 导入新的工具函数
 import {
-  createStandardStateActions,
-  createFilteredStateManager,
   createConfigManager,
+  createFilteredStateManager,
+  createStandardStateActions,
 } from "@/utils/state";
 
 export interface UseFriendsStateReturn {
@@ -72,24 +72,27 @@ export function useFriendsState(): UseFriendsStateReturn {
   const stateActions = createStandardStateActions<FriendLink[]>(
     setLoading,
     setError,
-    setFriendsItems
+    setFriendsItems,
   );
 
   // 创建过滤管理器
-  const filterManager = createFilteredStateManager<FriendLink>(friendsItems, (item, searchTerm) => {
-    const lowerSearchTerm = searchTerm.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(lowerSearchTerm) ||
-      item.description?.toLowerCase().includes(lowerSearchTerm) ||
-      item.url.toLowerCase().includes(lowerSearchTerm)
-    );
-  });
+  const filterManager = createFilteredStateManager<FriendLink>(
+    friendsItems,
+    (item, searchTerm) => {
+      const lowerSearchTerm = searchTerm.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(lowerSearchTerm) ||
+        item.description?.toLowerCase().includes(lowerSearchTerm) ||
+        item.url.toLowerCase().includes(lowerSearchTerm)
+      );
+    },
+  );
 
   // 创建配置管理器
   const configManager = createConfigManager<FriendsPageConfig>(
     DEFAULT_FRIENDS_CONFIG,
     config,
-    setConfig
+    setConfig,
   );
 
   // 加载友链数据
@@ -108,7 +111,7 @@ export function useFriendsState(): UseFriendsStateReturn {
         contentType: "links",
       });
     },
-    [stateActions, setFriendsItems]
+    [stateActions, setFriendsItems],
   );
 
   // 更新配置
@@ -124,7 +127,7 @@ export function useFriendsState(): UseFriendsStateReturn {
         setRequirements(FRIEND_LINK_REQUIREMENTS);
       }
     },
-    [configManager, config, setRequirements]
+    [configManager, config, setRequirements],
   );
 
   // 检查是否有友链数据

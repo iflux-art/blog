@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
-import type { SidebarConfig } from "@/types";
-import type { PageLayoutType } from "@/types";
-import { cn } from "@/utils";
 import { SidebarWrapper } from "@/features/navigation";
-import { getMainContentClasses, getSidebarClasses } from "@/lib/layout/layout-utils";
+import {
+  getMainContentClasses,
+  getSidebarClasses,
+} from "@/lib/layout/layout-utils";
 import { useLayoutStore } from "@/stores";
+import type { PageLayoutType, SidebarConfig } from "@/types";
+import { cn } from "@/utils";
 
 interface ResponsiveGridProps {
   /**
@@ -43,22 +45,25 @@ export const ResponsiveGrid = ({
   // 优先使用传入的布局类型，否则使用 store 中的类型
   const layoutType = propLayoutType || storeLayoutType;
 
-  const leftSidebars = sidebars.filter(s => s.position === "left");
-  const rightSidebars = sidebars.filter(s => s.position === "right");
+  const leftSidebars = sidebars.filter((s) => s.position === "left");
+  const rightSidebars = sidebars.filter((s) => s.position === "right");
 
   return (
     <div
       className={cn(
         "grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-12 md:gap-6 lg:gap-8 xl:gap-10",
         layoutType === "narrow" ? "py-4 lg:py-6" : "py-6 lg:py-8",
-        className
+        className,
       )}
     >
       {/* 左侧边栏区域 */}
       {leftSidebars.length > 0 && (
         <div className={getSidebarClasses("left", layoutType)}>
           {leftSidebars.map((sidebar, index) => (
-            <SidebarWrapper key={sidebar.id || `left-${index}`} config={sidebar}>
+            <SidebarWrapper
+              key={sidebar.id || `left-${index}`}
+              config={sidebar}
+            >
               {sidebar.content}
             </SidebarWrapper>
           ))}
@@ -72,7 +77,10 @@ export const ResponsiveGrid = ({
       {rightSidebars.length > 0 && (
         <div className={getSidebarClasses("right", layoutType)}>
           {rightSidebars.map((sidebar, index) => (
-            <SidebarWrapper key={sidebar.id || `right-${index}`} config={sidebar}>
+            <SidebarWrapper
+              key={sidebar.id || `right-${index}`}
+              config={sidebar}
+            >
               {sidebar.content}
             </SidebarWrapper>
           ))}

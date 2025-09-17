@@ -1,10 +1,11 @@
 "use client";
 
-import { useHeadingObserver } from "@/hooks/use-heading-observer";
-import { cn } from "@/utils";
-import type { TocHeading, TocProps } from "@/features/navigation/types";
 import { Text } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import type { TocHeading, TocProps } from "@/features/navigation/types";
+import { useHeadingObserver } from "@/hooks/use-heading-observer";
+import { cn } from "@/utils";
+
 // ====== 迁移自 src/config/layout.ts ======
 /**
  * 页面顶部固定导航栏的高度
@@ -22,7 +23,11 @@ const SCROLL_OFFSET = NAVBAR_HEIGHT;
  * @param offset 偏移量（默认为0）
  * @param updateHash 是否更新URL hash（默认为false）
  */
-function scrollToElement(elementId: string, offset = 0, updateHash = false): void {
+function scrollToElement(
+  elementId: string,
+  offset = 0,
+  updateHash = false,
+): void {
   const element = document.getElementById(elementId);
   if (!element) return;
 
@@ -85,12 +90,12 @@ const TocHeadingItem = ({ heading, isActive }: TocHeadingItemProps) => {
           "hover:text-foreground",
           // active 状态
           isActive && "font-medium text-foreground",
-          "w-full"
+          "w-full",
         )}
         style={{
           paddingLeft: heading.level > 2 ? `calc(${indent}rem + 1rem)` : "1rem",
         }}
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           // 先设置URL的hash，以便正确更新状态
           window.location.hash = heading.id; // 这会触发hashchange事件
@@ -123,7 +128,11 @@ const TocList = ({ headings, activeId }: TocListProps) => (
 
     <div className="space-y-1">
       {headings.map((heading, _index) => (
-        <TocHeadingItem key={heading.id} heading={heading} isActive={activeId === heading.id} />
+        <TocHeadingItem
+          key={heading.id}
+          heading={heading}
+          isActive={activeId === heading.id}
+        />
       ))}
     </div>
   </div>
@@ -133,7 +142,7 @@ const TocList = ({ headings, activeId }: TocListProps) => (
 function useAutoScrollToActive(
   activeId: string | null,
   tocRef: React.RefObject<HTMLDivElement | null>,
-  headingsLength: number
+  headingsLength: number,
 ) {
   useEffect(() => {
     if (headingsLength === 0) {
@@ -149,13 +158,16 @@ function useAutoScrollToActive(
 
       timeoutId = window.setTimeout(() => {
         if (activeId && tocRef.current) {
-          const activeElement = tocRef.current.querySelector(`a[href="#${activeId}"]`);
+          const activeElement = tocRef.current.querySelector(
+            `a[href="#${activeId}"]`,
+          );
           if (activeElement) {
             const containerRect = tocRef.current.getBoundingClientRect();
             const activeRect = activeElement.getBoundingClientRect();
 
             const isInView =
-              activeRect.top >= containerRect.top && activeRect.bottom <= containerRect.bottom;
+              activeRect.top >= containerRect.top &&
+              activeRect.bottom <= containerRect.bottom;
 
             if (!isInView) {
               const scrollTop =
@@ -187,7 +199,7 @@ function useAdaptiveHeight(
   tocRef: React.RefObject<HTMLDivElement | null>,
   adaptive: boolean,
   adaptiveOffset: number,
-  filteredHeadingsLength: number
+  filteredHeadingsLength: number,
 ) {
   useEffect(() => {
     if (filteredHeadingsLength === 0 || !adaptive) {
@@ -261,7 +273,7 @@ export const TableOfContents = ({
 
   // 过滤掉h1标题，只显示h2-h4
   const filteredHeadings = headings.filter(
-    (heading: TocHeading) => heading.level >= 2 && heading.level <= 4
+    (heading: TocHeading) => heading.level >= 2 && heading.level <= 4,
   );
 
   // 使用自定义hooks处理副作用
@@ -282,7 +294,7 @@ export const TableOfContents = ({
         className={cn(
           adaptive && "transition-all duration-200",
           adaptive && "fixed overflow-y-auto",
-          "hide-scrollbar w-full"
+          "hide-scrollbar w-full",
         )}
         style={adaptive ? { top: `${adaptiveOffset}px` } : undefined}
       >

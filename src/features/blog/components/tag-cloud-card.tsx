@@ -1,11 +1,11 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/utils";
 import { Tag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/utils";
 
 export interface TagWithCount {
   name: string;
@@ -41,7 +41,7 @@ export const TagCloudCard = ({
   const router = useRouter();
   const sortedTags = React.useMemo(
     () => [...(allTags || [])].sort((a, b) => b.count - a.count),
-    [allTags]
+    [allTags],
   );
 
   if (!allTags?.length) return null;
@@ -71,7 +71,7 @@ export const TagCloudCard = ({
       <CardContent className="pt-0 pb-4">
         <div className="hide-scrollbar max-h-[250px] overflow-y-auto sm:max-h-[300px]">
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
-            {sortedTags.map(tag => {
+            {sortedTags.map((tag) => {
               const isSelected = selectedTag === tag.name;
               return (
                 <Badge
@@ -82,7 +82,7 @@ export const TagCloudCard = ({
                     "hover:scale-105 hover:shadow-sm active:scale-95",
                     isSelected
                       ? "bg-primary text-primary-foreground shadow-sm"
-                      : "border-0 bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary active:bg-primary/20"
+                      : "border-0 bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary active:bg-primary/20",
                   )}
                   onClick={() => handleTagClick(tag.name)}
                 >

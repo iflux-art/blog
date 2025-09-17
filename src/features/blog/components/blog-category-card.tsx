@@ -1,11 +1,11 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { CategoryWithCount } from "@/features/blog/types";
-import { cn } from "@/utils";
 import { Folder } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { CategoryWithCount } from "@/features/blog/types";
+import { cn } from "@/utils";
 
 export interface BlogCategoryCardProps {
   categories?: CategoryWithCount[];
@@ -42,7 +42,7 @@ export const BlogCategoryCard = ({
   // 按文章数量降序排列分类
   const sortedCategories = React.useMemo(
     () => [...categories].sort((a, b) => b.count - a.count),
-    [categories]
+    [categories],
   );
 
   const handleClick = (category: string | null) => {
@@ -69,7 +69,7 @@ export const BlogCategoryCard = ({
       <CardContent className={showHeader ? "pt-0 pb-4" : "py-4"}>
         <div className="hide-scrollbar max-h-[250px] space-y-1.5 overflow-y-auto sm:max-h-[300px] sm:space-y-2">
           {/* 分类列表 - 按文章数量降序排列 */}
-          {sortedCategories.map(category => {
+          {sortedCategories.map((category) => {
             const isSelected = selectedCategory === category.name;
             return (
               <button
@@ -80,12 +80,13 @@ export const BlogCategoryCard = ({
                   "flex min-h-[44px] w-full touch-manipulation items-center gap-2 rounded-md px-2.5 py-2.5 text-left text-sm transition-colors sm:min-h-[36px] sm:px-3 sm:py-2",
                   isSelected
                     ? "bg-primary font-medium text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground active:bg-muted/80"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground active:bg-muted/80",
                 )}
               >
                 <Folder className="h-3.5 w-3.5" />
                 <span className="flex-1">
-                  {category.name} <span className="text-xs opacity-70">({category.count})</span>
+                  {category.name}{" "}
+                  <span className="text-xs opacity-70">({category.count})</span>
                 </span>
               </button>
             );

@@ -6,12 +6,13 @@
 
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/utils";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { forwardRef } from "react";
+import type React from "react";
+import { forwardRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/utils";
 
 interface FriendLinkCardProps {
   /** 友链标题 */
@@ -38,8 +39,23 @@ interface FriendLinkCardProps {
  * 友链卡片组件
  * 与 LinkCard 保持一致的样式和交互逻辑
  */
-export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>(
-  ({ title, description, href, isExternal = true, icon, color, className, children }, ref) => {
+export const FriendLinkCard = forwardRef<
+  HTMLAnchorElement,
+  FriendLinkCardProps
+>(
+  (
+    {
+      title,
+      description,
+      href,
+      isExternal = true,
+      icon,
+      color,
+      className,
+      children,
+    },
+    ref,
+  ) => {
     // 图标渲染逻辑，与 LinkCard 保持一致
     const renderIcon = () => {
       // 获取标题首个字符
@@ -49,7 +65,9 @@ export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>
       if (!icon) {
         return (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="text-lg font-medium text-primary">{firstChar}</span>
+            <span className="text-lg font-medium text-primary">
+              {firstChar}
+            </span>
           </div>
         );
       }
@@ -70,7 +88,7 @@ export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>
             className="object-cover"
             unoptimized
             loading="lazy"
-            onError={e => {
+            onError={(e) => {
               // 图片加载失败时显示标题首个字符
               const parent = e.currentTarget.parentElement;
               if (parent) {
@@ -93,7 +111,7 @@ export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>
       <Card
         className={cn(
           "group transition-all duration-300 hover:scale-[1.01] hover:border-primary/50",
-          className
+          className,
         )}
         style={cardStyle}
       >
@@ -104,9 +122,15 @@ export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="mb-1 flex items-center gap-2">
               <h3 className="truncate text-lg font-semibold">{title}</h3>
-              {isExternal && <ExternalLink className="h-4 w-4 text-muted-foreground" />}
+              {isExternal && (
+                <ExternalLink className="h-4 w-4 text-muted-foreground" />
+              )}
             </div>
-            {description && <p className="truncate text-sm text-muted-foreground">{description}</p>}
+            {description && (
+              <p className="truncate text-sm text-muted-foreground">
+                {description}
+              </p>
+            )}
             {children && <div className="mt-2">{children}</div>}
           </div>
         </CardContent>
@@ -128,7 +152,7 @@ export const FriendLinkCard = forwardRef<HTMLAnchorElement, FriendLinkCardProps>
     }
 
     return <Link {...commonProps}>{cardContent}</Link>;
-  }
+  },
 );
 
 FriendLinkCard.displayName = "FriendLinkCard";

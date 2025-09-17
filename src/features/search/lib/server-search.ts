@@ -29,7 +29,9 @@ const CACHE_TTL = 5 * 60 * 1000; // 5分钟缓存
 /**
  * 扫描内容文件（博客/文档）
  */
-async function scanContentFiles(contentType: "blog" | "docs"): Promise<SearchResult[]> {
+async function scanContentFiles(
+  contentType: "blog" | "docs",
+): Promise<SearchResult[]> {
   const basePath = path.join(process.cwd(), `src/content/${contentType}`);
   const files = await glob("**/*.mdx", { cwd: basePath });
   const results: SearchResult[] = [];
@@ -46,9 +48,13 @@ async function scanContentFiles(contentType: "blog" | "docs"): Promise<SearchRes
             type: contentType === "blog" ? "blog" : "doc",
             title: frontmatter.title,
             description:
-              typeof frontmatter.description === "string" ? frontmatter.description : undefined,
+              typeof frontmatter.description === "string"
+                ? frontmatter.description
+                : undefined,
             path: `/${contentType}/${file.replace(/\.mdx$/, "")}`,
-            tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : undefined,
+            tags: Array.isArray(frontmatter.tags)
+              ? frontmatter.tags
+              : undefined,
           });
         }
       } catch {
@@ -78,7 +84,7 @@ async function scanLinkFiles(): Promise<SearchResult[]> {
         const fileContent = await fs.readFile(filePath, "utf8");
         const items: LinkItem[] = JSON.parse(fileContent);
 
-        items.forEach(item => {
+        items.forEach((item) => {
           results.push({
             type: "link",
             title: item.title,
@@ -121,7 +127,7 @@ export async function getCachedContent() {
 export async function performServerSearch(
   query: string,
   type = "all",
-  limit = 10
+  limit = 10,
 ): Promise<{ results: SearchResult[]; total: number }> {
   if (!query.trim()) {
     return { results: [], total: 0 };
@@ -134,7 +140,7 @@ export async function performServerSearch(
   // 搜索链接
   if (type === "all" || type === "links") {
     const linkResults = links
-      .filter(link => {
+      .filter((link) => {
         const searchText =
           `${link.title} ${link.description} ${link.tags?.join(" ")}`.toLowerCase();
         return searchText.includes(queryLower);
@@ -146,7 +152,7 @@ export async function performServerSearch(
   // 搜索博客
   if (type === "all" || type === "blog") {
     const blogResults = blogs
-      .filter(post => {
+      .filter((post) => {
         const searchText =
           `${post.title} ${post.description} ${post.tags?.join(" ")}`.toLowerCase();
         return searchText.includes(queryLower);
@@ -158,7 +164,7 @@ export async function performServerSearch(
   // 搜索文档
   if (type === "all" || type === "doc") {
     const docResults = docs
-      .filter(doc => {
+      .filter((doc) => {
         const searchText = `${doc.title} ${doc.description}`.toLowerCase();
         return searchText.includes(queryLower);
       })

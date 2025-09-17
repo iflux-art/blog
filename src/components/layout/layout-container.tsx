@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { PageLayoutType, SidebarConfig } from "@/types";
 import { THREE_COLUMN_LAYOUT_CONFIG } from "@/lib/layout/layout-utils";
+import type { PageLayoutType, SidebarConfig } from "@/types";
 import { PageContainer } from "./page-container";
 
 interface LayoutContainerProps {
@@ -64,7 +64,11 @@ export const LayoutContainer = ({
   }
 
   return (
-    <PageContainer config={{ layout }} sidebars={sidebars} className={className}>
+    <PageContainer
+      config={{ layout }}
+      sidebars={sidebars}
+      className={className}
+    >
       {children}
     </PageContainer>
   );

@@ -1,11 +1,14 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useHeadingObserver } from "@/hooks/use-heading-observer";
-import { cn } from "@/utils";
-import type { TocHeading, TableOfContentsCardProps } from "@/features/navigation/types";
 import { Text } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type {
+  TableOfContentsCardProps,
+  TocHeading,
+} from "@/features/navigation/types";
+import { useHeadingObserver } from "@/hooks/use-heading-observer";
+import { cn } from "@/utils";
 
 // ====== 迁移自 src/config/layout.ts ======
 /**
@@ -25,7 +28,11 @@ const SCROLL_OFFSET = NAVBAR_HEIGHT;
  * @param offset 偏移量（默认为0）
  * @param updateHash 是否更新URL hash（默认为false）
  */
-function scrollToElement(elementId: string, offset = 0, updateHash = false): void {
+function scrollToElement(
+  elementId: string,
+  offset = 0,
+  updateHash = false,
+): void {
   const element = document.getElementById(elementId);
   if (!element) return;
 
@@ -88,12 +95,12 @@ const HeadingItem = ({ heading, isActive }: HeadingItemProps) => {
           "hover:text-foreground",
           // active 状态
           isActive && "font-medium text-foreground",
-          "w-full"
+          "w-full",
         )}
         style={{
           paddingLeft: heading.level > 2 ? `calc(${indent}rem + 1rem)` : "1rem",
         }}
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           // 先设置URL的hash，以便正确更新状态
           window.location.hash = heading.id; // 这会触发hashchange事件
@@ -128,7 +135,11 @@ const TocContainer = ({ headings, activeId, tocRef }: TocContainerProps) => (
 
       <div className="space-y-1">
         {headings.map((heading, _index) => (
-          <HeadingItem key={heading.id} heading={heading} isActive={activeId === heading.id} />
+          <HeadingItem
+            key={heading.id}
+            heading={heading}
+            isActive={activeId === heading.id}
+          />
         ))}
       </div>
     </div>
@@ -166,13 +177,16 @@ export const TableOfContentsCard = ({
 
       timeoutId = window.setTimeout(() => {
         if (activeId && tocRef.current) {
-          const activeElement = tocRef.current.querySelector(`a[href="#${activeId}"]`);
+          const activeElement = tocRef.current.querySelector(
+            `a[href="#${activeId}"]`,
+          );
           if (activeElement) {
             const containerRect = tocRef.current.getBoundingClientRect();
             const activeRect = activeElement.getBoundingClientRect();
 
             const isInView =
-              activeRect.top >= containerRect.top && activeRect.bottom <= containerRect.bottom;
+              activeRect.top >= containerRect.top &&
+              activeRect.bottom <= containerRect.bottom;
 
             if (!isInView) {
               const scrollTop =
@@ -200,7 +214,7 @@ export const TableOfContentsCard = ({
 
   // 过滤掉h1标题，只显示h2-h4
   const filteredHeadings = headings.filter(
-    (heading: TocHeading) => heading.level >= 2 && heading.level <= 4
+    (heading: TocHeading) => heading.level >= 2 && heading.level <= 4,
   );
 
   // 根据标题级别对目录进行分组和嵌套
@@ -232,7 +246,11 @@ export const TableOfContentsCard = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0 pb-4">
-        <TocContainer headings={organizedHeadings} activeId={activeId} tocRef={tocRef} />
+        <TocContainer
+          headings={organizedHeadings}
+          activeId={activeId}
+          tocRef={tocRef}
+        />
       </CardContent>
     </Card>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/utils";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/utils";
 
 type MDXLinkProps = {
   href: string;
@@ -14,7 +14,9 @@ type MDXLinkProps = {
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 const isExternalLink = (href: string): boolean =>
-  href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:");
+  href.startsWith("http") ||
+  href.startsWith("mailto:") ||
+  href.startsWith("tel:");
 
 export const MDXLink = ({
   href,
@@ -33,7 +35,7 @@ export const MDXLink = ({
     "after:bg-current after:transition-all after:duration-300 after:ease-out",
     "hover:after:w-full",
     isExternal && "text-primary",
-    className
+    className,
   );
 
   if (isExternal) {
@@ -45,7 +47,9 @@ export const MDXLink = ({
         rel="noopener noreferrer"
       >
         {children}
-        {showExternalIcon && <ExternalLink className="ml-1 inline-block h-3 w-3" />}
+        {showExternalIcon && (
+          <ExternalLink className="ml-1 inline-block h-3 w-3" />
+        )}
       </a>
     );
   }

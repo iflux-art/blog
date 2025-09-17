@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/utils";
 import { ArrowRightLeft, FileText } from "lucide-react";
 import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/utils";
 
 // 相关文章类型定义
 export interface RelatedPost {
@@ -19,7 +19,10 @@ export interface RelatedPostsCardProps {
 /**
  * 相关文章卡片组件
  */
-export const RelatedPostsCard = ({ posts, currentSlug }: RelatedPostsCardProps) => {
+export const RelatedPostsCard = ({
+  posts,
+  currentSlug,
+}: RelatedPostsCardProps) => {
   if (!posts?.length) return null;
 
   const currentPath = `/blog/${currentSlug.join("/")}`;
@@ -43,7 +46,7 @@ export const RelatedPostsCard = ({ posts, currentSlug }: RelatedPostsCardProps) 
               href={post.href}
               className={cn(
                 "group flex items-start gap-2 rounded-md p-2 text-xs transition-all duration-200 hover:bg-muted/60",
-                isActive && "bg-muted font-medium text-primary"
+                isActive && "bg-muted font-medium text-primary",
               )}
             >
               <FileText className="mt-0.5 h-3 w-3 shrink-0 text-muted-foreground/70 group-hover:text-foreground/80" />

@@ -5,14 +5,19 @@
 
 "use client";
 
-import type { BlogPost, CategoryWithCount } from "@/features/blog/types";
-import { API_PATHS } from "@/lib/api/api-paths";
-import { useMemo } from "react";
-import { type HookResult, useContentData } from "../../../hooks/use-content-data";
-
 // 添加缺失的导入
-import { useState, useCallback } from "react";
-import type { ContentSearchParams, ContentPageState } from "@/features/blog/types";
+import { useCallback, useMemo, useState } from "react";
+import type {
+  BlogPost,
+  CategoryWithCount,
+  ContentPageState,
+  ContentSearchParams,
+} from "@/features/blog/types";
+import { API_PATHS } from "@/lib/api/api-paths";
+import {
+  type HookResult,
+  useContentData,
+} from "../../../hooks/use-content-data";
 
 export interface TagCount {
   tag: string;
@@ -35,7 +40,8 @@ export interface UseBlogPostsResult extends BlogResult<BlogPost[]> {
 // 导出 CategoryWithCount 类型供外部使用
 export type { CategoryWithCount };
 
-export interface UseTimelinePostsResult extends BlogResult<Record<string, BlogPost[]>> {
+export interface UseTimelinePostsResult
+  extends BlogResult<Record<string, BlogPost[]>> {
   postsByYear: Record<string, BlogPost[]>;
 }
 
@@ -44,7 +50,9 @@ export interface UseTimelinePostsResult extends BlogResult<Record<string, BlogPo
  * @param initialParams 初始搜索参数
  * @returns 搜索参数和更新函数
  */
-export function useContentSearch(initialParams: Partial<ContentSearchParams> = {}) {
+export function useContentSearch(
+  initialParams: Partial<ContentSearchParams> = {},
+) {
   const [searchParams, setSearchParams] = useState<ContentSearchParams>({
     query: "",
     limit: 10,
@@ -53,7 +61,7 @@ export function useContentSearch(initialParams: Partial<ContentSearchParams> = {
   });
 
   const updateSearch = useCallback((params: Partial<ContentSearchParams>) => {
-    setSearchParams(prev => ({ ...prev, ...params }));
+    setSearchParams((prev) => ({ ...prev, ...params }));
   }, []);
 
   return {
@@ -67,7 +75,9 @@ export function useContentSearch(initialParams: Partial<ContentSearchParams> = {
  * @param initialPageState 初始分页状态
  * @returns 分页状态和更新函数
  */
-export function useContentPagination(initialPageState: Partial<ContentPageState> = {}) {
+export function useContentPagination(
+  initialPageState: Partial<ContentPageState> = {},
+) {
   const [pageState, setPageState] = useState<ContentPageState>({
     page: 1,
     limit: 10,
@@ -75,11 +85,11 @@ export function useContentPagination(initialPageState: Partial<ContentPageState>
   });
 
   const updatePage = useCallback((page: number) => {
-    setPageState(prev => ({ ...prev, page }));
+    setPageState((prev) => ({ ...prev, page }));
   }, []);
 
   const updateLimit = useCallback((limit: number) => {
-    setPageState(prev => ({ ...prev, limit, page: 1 })); // 重置到第一页
+    setPageState((prev) => ({ ...prev, limit, page: 1 })); // 重置到第一页
   }, []);
 
   const resetPagination = useCallback(() => {
@@ -103,7 +113,9 @@ export function useContentPagination(initialPageState: Partial<ContentPageState>
  * @param initialFilters 初始筛选条件
  * @returns 筛选状态和更新函数
  */
-export function useContentFilter(initialFilters: Partial<ContentPageState> = {}) {
+export function useContentFilter(
+  initialFilters: Partial<ContentPageState> = {},
+) {
   const [filters, setFilters] = useState<ContentPageState>({
     page: 1,
     limit: 10,
@@ -111,7 +123,7 @@ export function useContentFilter(initialFilters: Partial<ContentPageState> = {})
   });
 
   const updateFilter = useCallback((filter: Partial<ContentPageState>) => {
-    setFilters(prev => ({ ...prev, ...filter }));
+    setFilters((prev) => ({ ...prev, ...filter }));
   }, []);
 
   const clearFilters = useCallback(() => {
@@ -181,10 +193,10 @@ export function useBlogPosts(): UseBlogPostsResult {
       return { postsCount: {}, categories: [], isComputing: true };
     }
 
-    sortedPosts.forEach(post => {
+    sortedPosts.forEach((post) => {
       // 处理标签统计，确保 tags 属性存在且是数组
       if (post.tags && Array.isArray(post.tags)) {
-        post.tags.forEach(tag => {
+        post.tags.forEach((tag) => {
           if (typeof tag === "string") {
             postsCount[tag] = (postsCount[tag] || 0) + 1;
           }
@@ -193,7 +205,8 @@ export function useBlogPosts(): UseBlogPostsResult {
 
       // 处理分类统计，确保 category 属性存在且是字符串
       if (post.category && typeof post.category === "string") {
-        categoriesCount[post.category] = (categoriesCount[post.category] || 0) + 1;
+        categoriesCount[post.category] =
+          (categoriesCount[post.category] || 0) + 1;
       }
     });
 
@@ -228,7 +241,9 @@ export function useBlogPosts(): UseBlogPostsResult {
  * @returns 标签统计列表
  */
 export function useTagCounts(): HookResult<TagCount[]> {
-  const { data, loading, error, refresh } = useContentData<Record<string, number>>({
+  const { data, loading, error, refresh } = useContentData<
+    Record<string, number>
+  >({
     type: "blog",
     path: API_PATHS.blog.TagsCount,
   });
@@ -240,7 +255,9 @@ export function useTagCounts(): HookResult<TagCount[]> {
       count: count as number,
     }));
 
-    return countsArray.sort((a, b) => (b.count as number) - (a.count as number));
+    return countsArray.sort(
+      (a, b) => (b.count as number) - (a.count as number),
+    );
   }, [data]);
 
   return {
@@ -257,7 +274,9 @@ export function useTagCounts(): HookResult<TagCount[]> {
  * @returns 按年份分组的博客文章
  */
 export function useTimelinePosts(): UseTimelinePostsResult {
-  const { data, loading, error, refresh } = useContentData<Record<string, BlogPost[]>>({
+  const { data, loading, error, refresh } = useContentData<
+    Record<string, BlogPost[]>
+  >({
     type: "blog",
     path: API_PATHS.blog.Timeline,
   });

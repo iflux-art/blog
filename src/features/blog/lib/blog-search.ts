@@ -30,12 +30,12 @@ async function getAllFiles(dirPath: string): Promise<string[]> {
   try {
     const entries = await fs.readdir(dirPath, { withFileTypes: true });
     const files = await Promise.all(
-      entries.map(entry => {
+      entries.map((entry) => {
         const res = path.resolve(dirPath, entry.name);
         return entry.isDirectory() ? getAllFiles(res) : res;
-      })
+      }),
     );
-    return files.flat().filter(file => /\.(md|mdx)$/.test(file));
+    return files.flat().filter((file) => /\.(md|mdx)$/.test(file));
   } catch (error) {
     console.error("Error reading directory:", error);
     return [];
@@ -50,7 +50,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   const files = await getAllFiles(blogDir);
 
   const posts = await Promise.all(
-    files.map(async file => {
+    files.map(async (file) => {
       try {
         const content = await fs.readFile(file, "utf-8");
         const { data, content: markdown } = matter(content);
@@ -75,7 +75,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
           date: "",
         };
       }
-    })
+    }),
   );
 
   return posts;
@@ -84,15 +84,19 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 /**
  * 搜索博客文章
  */
-export async function searchBlogPosts(query: string, limit = 10): Promise<BlogSearchResult[]> {
+export async function searchBlogPosts(
+  query: string,
+  limit = 10,
+): Promise<BlogSearchResult[]> {
   try {
     const blogPosts = await getBlogPosts();
     const searchResults = blogPosts
-      .filter(post => {
-        const searchContent = `${post.title} ${post.description} ${post.content}`.toLowerCase();
+      .filter((post) => {
+        const searchContent =
+          `${post.title} ${post.description} ${post.content}`.toLowerCase();
         return searchContent.includes(query.toLowerCase());
       })
-      .map(post => ({
+      .map((post) => ({
         title: post.title,
         path: post.url,
         excerpt: post.description || `${post.content.slice(0, 160)}...`,

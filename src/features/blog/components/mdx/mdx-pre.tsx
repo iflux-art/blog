@@ -1,8 +1,7 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import { CodeBlock } from "@/features/blog/components/code/code-block";
-import { useEffect, useState } from "react";
-import React from "react";
 import "@/features/blog/components/code/styles/prism-custom.css";
 
 type MDXPreProps = {
@@ -13,7 +12,10 @@ type MDXPreProps = {
 /**
  * 从 children 中提取代码内容和语言
  */
-function extractCodeInfo(children: React.ReactNode): { code: string; language: string } {
+function extractCodeInfo(children: React.ReactNode): {
+  code: string;
+  language: string;
+} {
   let code = "";
   let language = "plaintext";
 
@@ -54,7 +56,11 @@ function extractCodeInfo(children: React.ReactNode): { code: string; language: s
         }
       }
       // 递归处理子元素
-      if (typeof node.props === "object" && node.props && "children" in node.props) {
+      if (
+        typeof node.props === "object" &&
+        node.props &&
+        "children" in node.props
+      ) {
         return extractText(node.props.children as React.ReactNode);
       }
     }
@@ -92,7 +98,12 @@ export function MDXPre({ children, className, ...props }: MDXPreProps) {
   // 客户端渲染时，如果有代码内容则使用 CodeBlock
   if (code) {
     return (
-      <CodeBlock code={code} language={language} showLineNumbers={true} className={className} />
+      <CodeBlock
+        code={code}
+        language={language}
+        showLineNumbers={true}
+        className={className}
+      />
     );
   }
 

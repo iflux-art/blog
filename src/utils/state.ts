@@ -12,7 +12,7 @@ import { executeAsyncOperation } from "@/utils/async";
 export function createStandardStateActions<T>(
   setLoading: (loading: boolean) => void,
   setError: (error: string | null) => void,
-  setData: (data: T) => void
+  setData: (data: T) => void,
 ) {
   return {
     /**
@@ -20,7 +20,7 @@ export function createStandardStateActions<T>(
      */
     loadData: async (
       fetchFn: () => Promise<T>,
-      options: Omit<UseAsyncOptions<T>, "setLoading" | "setError"> = {}
+      options: Omit<UseAsyncOptions<T>, "setLoading" | "setError"> = {},
     ): Promise<T | null> => {
       return await executeAsyncOperation(fetchFn, {
         setLoading,
@@ -35,7 +35,7 @@ export function createStandardStateActions<T>(
      */
     updateData: async (
       updateFn: () => Promise<T>,
-      options: Omit<UseAsyncOptions<T>, "setLoading" | "setError"> = {}
+      options: Omit<UseAsyncOptions<T>, "setLoading" | "setError"> = {},
     ): Promise<T | null> => {
       return await executeAsyncOperation(updateFn, {
         setLoading,
@@ -71,7 +71,7 @@ export function createStandardStateActions<T>(
  */
 export function createFilteredStateManager<T>(
   items: T[],
-  filterFn: (item: T, searchTerm: string) => boolean
+  filterFn: (item: T, searchTerm: string) => boolean,
 ) {
   return {
     /**
@@ -82,7 +82,7 @@ export function createFilteredStateManager<T>(
         return items;
       }
 
-      return items.filter(item => filterFn(item, searchTerm));
+      return items.filter((item) => filterFn(item, searchTerm));
     },
 
     /**
@@ -107,7 +107,7 @@ export function createFilteredStateManager<T>(
 export function createConfigManager<T>(
   defaultConfig: T,
   currentConfig: T,
-  setConfig: (config: T) => void
+  setConfig: (config: T) => void,
 ) {
   return {
     /**

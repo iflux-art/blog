@@ -1,9 +1,9 @@
 "use client";
 
-import { type CategoryWithCount, getAllPosts } from "@/features/blog/hooks";
-import type { BlogPost } from "@/features/blog/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { type CategoryWithCount, getAllPosts } from "@/features/blog/hooks";
+import type { BlogPost } from "@/features/blog/types";
 
 // 分页配置
 const PAGE_SIZE = 10;
@@ -80,7 +80,7 @@ export function useBlogPage(): UseBlogPageReturn {
 
   // 过滤文章
   const filteredPosts = useMemo(() => {
-    return posts.filter(post => {
+    return posts.filter((post) => {
       if (category && post.category !== category) return false;
       if (tag && !post.tags?.includes(tag)) return false;
       return true;
@@ -121,9 +121,10 @@ export function useBlogPage(): UseBlogPageReturn {
 
     // 重新计算分类统计
     const categoriesCount: Record<string, number> = {};
-    posts.forEach(post => {
+    posts.forEach((post) => {
       if (post.category) {
-        categoriesCount[post.category] = (categoriesCount[post.category] || 0) + 1;
+        categoriesCount[post.category] =
+          (categoriesCount[post.category] || 0) + 1;
       }
     });
 
@@ -133,8 +134,8 @@ export function useBlogPage(): UseBlogPageReturn {
 
     // 重新计算标签统计
     const postsCount: Record<string, number> = {};
-    posts.forEach(post => {
-      post.tags?.forEach(tag => {
+    posts.forEach((post) => {
+      post.tags?.forEach((tag) => {
         postsCount[tag] = (postsCount[tag] || 0) + 1;
       });
     });
@@ -174,7 +175,7 @@ export function useBlogPage(): UseBlogPageReturn {
     }
 
     // 重新计算相关文章
-    const related = posts.slice(0, 10).map(post => ({
+    const related = posts.slice(0, 10).map((post) => ({
       title: post.title ?? "",
       href: `/blog/${post.slug ?? ""}`,
       category: post.category,
@@ -216,9 +217,9 @@ export function useBlogPage(): UseBlogPageReturn {
 
     // 重新计算最新文章
     const latest = posts
-      .filter(post => post.date)
+      .filter((post) => post.date)
       .slice(0, 5)
-      .map(post => ({
+      .map((post) => ({
         title: post.title ?? "",
         href: `/blog/${post.slug ?? ""}`,
         date: post.date?.toString(),

@@ -60,13 +60,13 @@ export const createBlogStore = () => {
     tagsCount: {},
 
     // Actions
-    setPosts: posts => set({ posts }),
-    setLoading: loading => set({ loading }),
-    setError: error => set({ error }),
-    setSelectedCategory: category => set({ selectedCategory: category }),
-    setSelectedTag: tag => set({ selectedTag: tag }),
-    setCategoriesCount: count => set({ categoriesCount: count }),
-    setTagsCount: count => set({ tagsCount: count }),
+    setPosts: (posts) => set({ posts }),
+    setLoading: (loading) => set({ loading }),
+    setError: (error) => set({ error }),
+    setSelectedCategory: (category) => set({ selectedCategory: category }),
+    setSelectedTag: (tag) => set({ selectedTag: tag }),
+    setCategoriesCount: (count) => set({ categoriesCount: count }),
+    setTagsCount: (count) => set({ tagsCount: count }),
     resetFilters: () => set({ selectedCategory: null, selectedTag: null }),
     resetState: () => set({ ...initialState }),
   }));

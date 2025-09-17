@@ -54,7 +54,7 @@ export function generateBlogPaths(): ContentItem[] {
   return scanContentDirectory({
     contentDir: path.join(process.cwd(), "src", "content", "blog"),
     excludePrefix: "_",
-    filter: itemPath => {
+    filter: (itemPath) => {
       const fileContent = fs.readFileSync(itemPath, "utf8");
       const { data } = matter(fileContent);
       return data.published !== false;

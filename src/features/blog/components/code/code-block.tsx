@@ -1,10 +1,10 @@
 "use client";
 
+import { Check, Copy } from "lucide-react";
+import Prism from "prismjs";
+import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils";
-import { useEffect, useRef, useState } from "react";
-import Prism from "prismjs";
-import { Check, Copy } from "lucide-react";
 import "prismjs/themes/prism-tomorrow.css"; // 使用暗色主题
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
@@ -125,7 +125,7 @@ export function CodeBlock({
     const lineHeight = 22; // 行高
     const paddingTop = fileName ? 64 : 36; // 上内边距加上标题栏高度
 
-    return highlightLines.map(lineNumber => (
+    return highlightLines.map((lineNumber) => (
       <div
         key={`highlight-${lineNumber}`}
         className="absolute left-0 right-0 bg-blue-100/40 dark:bg-[#3b3b3b]/80 border-l-2 border-blue-500"
@@ -142,7 +142,7 @@ export function CodeBlock({
     <div
       className={cn(
         "relative rounded-md overflow-hidden my-6 bg-muted dark:bg-muted border border-border shadow-lg",
-        className
+        className,
       )}
     >
       {/* 标题栏 */}
@@ -153,7 +153,9 @@ export function CodeBlock({
             {getLanguageDisplayName()}
           </Badge>
           {fileName && (
-            <span className="text-xs font-medium text-muted-foreground">{fileName}</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              {fileName}
+            </span>
           )}
         </div>
 
@@ -165,7 +167,11 @@ export function CodeBlock({
           title={copied ? "已复制!" : "复制代码"}
           aria-label={copied ? "已复制" : "复制代码"}
         >
-          {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
         </button>
       </div>
 
@@ -178,13 +184,17 @@ export function CodeBlock({
           ref={preRef}
           className={cn(
             "relative group p-4 m-0 overflow-auto max-h-[500px] font-mono text-[0.9rem] z-10",
-            showLineNumbers && mounted ? "line-numbers" : ""
+            showLineNumbers && mounted ? "line-numbers" : "",
           )}
           style={{
-            fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Roboto Mono', monospace",
+            fontFamily:
+              "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Roboto Mono', monospace",
           }}
         >
-          <code ref={codeRef} className={mounted ? `language-${getLanguage()}` : undefined}>
+          <code
+            ref={codeRef}
+            className={mounted ? `language-${getLanguage()}` : undefined}
+          >
             {code}
           </code>
         </pre>

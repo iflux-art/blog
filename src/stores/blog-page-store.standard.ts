@@ -42,7 +42,10 @@ export interface BlogPageDerivedState {
 }
 
 // 完整的Store接口
-export interface BlogPageStore extends BlogPageState, BlogPageActions, BlogPageDerivedState {}
+export interface BlogPageStore
+  extends BlogPageState,
+    BlogPageActions,
+    BlogPageDerivedState {}
 
 // 初始状态
 export const initialState: BlogPageState = {
@@ -62,16 +65,16 @@ export const createBlogPageStore = () => {
     tag: undefined,
 
     // Actions
-    setPosts: posts => set({ posts }),
-    setLoading: loading => set({ loading }),
-    setCategory: category => set({ category }),
-    setTag: tag => set({ tag }),
+    setPosts: (posts) => set({ posts }),
+    setLoading: (loading) => set({ loading }),
+    setCategory: (category) => set({ category }),
+    setTag: (tag) => set({ tag }),
     resetState: () => set({ ...initialState }),
 
     // 派生状态（使用 getter 函数实现）
     get filteredPosts() {
       const state = get();
-      return state.posts.filter(post => {
+      return state.posts.filter((post) => {
         if (state.category && post.category !== state.category) return false;
         if (state.tag && !post.tags?.includes(state.tag)) return false;
         return true;
@@ -80,9 +83,10 @@ export const createBlogPageStore = () => {
     get categoriesCount() {
       const state = get();
       const categoriesCount: Record<string, number> = {};
-      state.posts.forEach(post => {
+      state.posts.forEach((post) => {
         if (post.category) {
-          categoriesCount[post.category] = (categoriesCount[post.category] || 0) + 1;
+          categoriesCount[post.category] =
+            (categoriesCount[post.category] || 0) + 1;
         }
       });
       return categoriesCount;
@@ -90,8 +94,8 @@ export const createBlogPageStore = () => {
     get tagsCount() {
       const state = get();
       const tagsCount: Record<string, number> = {};
-      state.posts.forEach(post => {
-        post.tags?.forEach(tag => {
+      state.posts.forEach((post) => {
+        post.tags?.forEach((tag) => {
           tagsCount[tag] = (tagsCount[tag] || 0) + 1;
         });
       });
@@ -99,7 +103,7 @@ export const createBlogPageStore = () => {
     },
     get relatedPosts() {
       const state = get();
-      return state.posts.slice(0, 10).map(post => ({
+      return state.posts.slice(0, 10).map((post) => ({
         title: post.title,
         href: `/blog/${post.slug}`,
         category: post.category,
@@ -109,9 +113,9 @@ export const createBlogPageStore = () => {
     get latestPosts() {
       const state = get();
       return state.posts
-        .filter(post => post.date)
+        .filter((post) => post.date)
         .slice(0, 5)
-        .map(post => ({
+        .map((post) => ({
           title: post.title,
           href: `/blog/${post.slug}`,
           date: post.date?.toString(),

@@ -12,7 +12,10 @@ import type { CacheOptions } from "@/types";
  * 增强版LRU缓存类
  */
 class EnhancedLRUCache<T> {
-  private cache: Map<string, { data: T; timestamp: number; lastAccessed: number }>;
+  private cache: Map<
+    string,
+    { data: T; timestamp: number; lastAccessed: number }
+  >;
   private maxSize: number;
 
   constructor(maxSize: number) {
@@ -70,9 +73,15 @@ class EnhancedLRUCache<T> {
   }
 
   // 获取缓存统计信息
-  getStats(): { totalItems: number; oldestItemAge: number; newestItemAge: number } {
+  getStats(): {
+    totalItems: number;
+    oldestItemAge: number;
+    newestItemAge: number;
+  } {
     const now = Date.now();
-    const timestamps = Array.from(this.cache.values()).map(item => item.timestamp);
+    const timestamps = Array.from(this.cache.values()).map(
+      (item) => item.timestamp,
+    );
 
     return {
       totalItems: this.cache.size,
@@ -109,7 +118,7 @@ const memoryCache = new EnhancedLRUCache<unknown>(200);
 export function useCache<T>(
   key: string,
   fetchFn: () => Promise<T>,
-  options: EnhancedCacheOptions<T> = {}
+  options: EnhancedCacheOptions<T> = {},
 ) {
   const {
     prefix: optionsPrefix,
@@ -137,7 +146,9 @@ export function useCache<T>(
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const fullKey = keyGenerator ? keyGenerator(key, undefined) : `${finalPrefix}${key}`;
+  const fullKey = keyGenerator
+    ? keyGenerator(key, undefined)
+    : `${finalPrefix}${key}`;
   const initialLoadDone = useRef(false);
   const retryCount = useRef(0);
 
@@ -146,7 +157,11 @@ export function useCache<T>(
     if (!finalUseMemoryCache) return null;
 
     const cached = memoryCache.get(fullKey) as CacheEntry<T> | null;
-    if (cached && Date.now() - cached.timestamp < finalExpiry && finalValidator(cached.data)) {
+    if (
+      cached &&
+      Date.now() - cached.timestamp < finalExpiry &&
+      finalValidator(cached.data)
+    ) {
       return cached.data;
     }
     return null;
@@ -163,7 +178,11 @@ export function useCache<T>(
       const cached = JSON.parse(stored) as CacheEntry<T>;
       const now = Date.now();
 
-      if (cached && now - cached.timestamp < finalExpiry && finalValidator(cached.data)) {
+      if (
+        cached &&
+        now - cached.timestamp < finalExpiry &&
+        finalValidator(cached.data)
+      ) {
         // 更新内存缓存
         if (finalUseMemoryCache) {
           memoryCache.set(fullKey, cached);
@@ -175,7 +194,13 @@ export function useCache<T>(
     }
 
     return null;
-  }, [fullKey, finalExpiry, finalUseLocalStorage, finalUseMemoryCache, finalValidator]);
+  }, [
+    fullKey,
+    finalExpiry,
+    finalUseLocalStorage,
+    finalUseMemoryCache,
+    finalValidator,
+  ]);
 
   // 保存数据到缓存
   const saveToCache = useCallback(
@@ -201,7 +226,7 @@ export function useCache<T>(
         }
       }
     },
-    [fullKey, finalUseMemoryCache, finalUseLocalStorage]
+    [fullKey, finalUseMemoryCache, finalUseLocalStorage],
   );
 
   // 获取数据（根据策略）
@@ -258,7 +283,14 @@ export function useCache<T>(
     }
 
     return null;
-  }, [strategy, getFromMemoryCache, getFromLocalStorage, fetchFn, finalValidator, saveToCache]);
+  }, [
+    strategy,
+    getFromMemoryCache,
+    getFromLocalStorage,
+    fetchFn,
+    finalValidator,
+    saveToCache,
+  ]);
 
   // 获取数据（带重试机制）
   const fetchData = useCallback(async (): Promise<T> => {
@@ -282,8 +314,8 @@ export function useCache<T>(
       // 重试逻辑
       if (retryCount.current < finalMaxRetries) {
         retryCount.current++;
-        await new Promise(resolve =>
-          setTimeout(resolve, finalRetryDelay * 2 ** (retryCount.current - 1))
+        await new Promise((resolve) =>
+          setTimeout(resolve, finalRetryDelay * 2 ** (retryCount.current - 1)),
         );
         return await fetchData();
       }

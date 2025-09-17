@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/utils";
 import Link from "next/link";
 import type { BreadcrumbProps } from "@/features/navigation/types";
+import { cn } from "@/utils";
 
 /**
  * 面包屑导航组件
@@ -17,7 +17,11 @@ import type { BreadcrumbProps } from "@/features/navigation/types";
  *   ]}
  * />
  */
-export const Breadcrumb = ({ items, separator = "/", className }: BreadcrumbProps) => (
+export const Breadcrumb = ({
+  items,
+  separator = "/",
+  className,
+}: BreadcrumbProps) => (
   <nav className={cn("text-sm font-medium text-muted-foreground", className)}>
     <ol className="flex flex-wrap items-center">
       {items.map((item, index) => {
@@ -33,11 +37,16 @@ export const Breadcrumb = ({ items, separator = "/", className }: BreadcrumbProp
         }
         return (
           <li key={item.label} className="flex items-center">
-            {index > 0 && <span className="mx-2 text-muted-foreground/70">{separator}</span>}
+            {index > 0 && (
+              <span className="mx-2 text-muted-foreground/70">{separator}</span>
+            )}
             {isLast || !href ? (
               <span className="text-foreground">{label}</span>
             ) : (
-              <Link href={href} className="text-muted-foreground hover:text-foreground">
+              <Link
+                href={href}
+                className="text-muted-foreground hover:text-foreground"
+              >
                 {label}
               </Link>
             )}

@@ -1,5 +1,8 @@
-import { DEFAULT_SIDEBAR_CONFIG, getResponsiveClasses } from "@/lib/layout/layout-utils";
 import type { SidebarWrapperProps } from "@/features/navigation/types";
+import {
+  DEFAULT_SIDEBAR_CONFIG,
+  getResponsiveClasses,
+} from "@/lib/layout/layout-utils";
 import { cn } from "@/utils";
 
 /**
@@ -23,7 +26,7 @@ export const SidebarWrapper = ({ children, config }: SidebarWrapperProps) => {
   const sidebarClasses = cn(
     "hide-scrollbar overflow-y-auto",
     sticky && "sticky",
-    getResponsiveClasses(hideOnMobile, hideOnTablet, hideOnDesktop)
+    getResponsiveClasses(hideOnMobile, hideOnTablet, hideOnDesktop),
   );
 
   const sidebarStyle = sticky

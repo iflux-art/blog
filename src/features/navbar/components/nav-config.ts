@@ -1,5 +1,5 @@
+import { BookOpen, FileText, Link, type LucideIcon } from "lucide-react";
 import type { BaseNavItem } from "@/features/navbar/types";
-import { BookOpen, Link, FileText, type LucideIcon } from "lucide-react";
 
 /**
  * 导航配置项接口
@@ -49,7 +49,7 @@ export const NAV_ITEMS = [
 // 扁平化所有导航项（包括子项）以便路径映射
 const flattenNavItems = (items: readonly NavConfigItem[]): NavConfigItem[] => {
   const result: NavConfigItem[] = [];
-  items.forEach(item => {
+  items.forEach((item) => {
     result.push(item);
     if (item.children) {
       result.push(...item.children);
@@ -71,5 +71,5 @@ export const NAV_PATHS: Record<string, string> = {
 // Navigation configuration validation removed for production
 
 export const NAV_DESCRIPTIONS = Object.fromEntries(
-  FLAT_NAV_ITEMS.map(item => [item.key, item.description])
+  FLAT_NAV_ITEMS.map((item) => [item.key, item.description]),
 ) as Record<string, string>;

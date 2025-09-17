@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/utils";
 import { Clock, FileText } from "lucide-react";
 import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/utils";
 
 // 最新文章类型定义
 export interface LatestPost {
@@ -19,7 +19,10 @@ export interface LatestPostsCardProps {
 /**
  * 最新发布文章卡片组件
  */
-export const LatestPostsCard = ({ posts, currentSlug }: LatestPostsCardProps) => {
+export const LatestPostsCard = ({
+  posts,
+  currentSlug,
+}: LatestPostsCardProps) => {
   if (!posts?.length) return null;
 
   const currentPath = `/blog/${currentSlug.join("/")}`;
@@ -33,7 +36,7 @@ export const LatestPostsCard = ({ posts, currentSlug }: LatestPostsCardProps) =>
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0 pb-4">
-        {posts.slice(0, 5).map(post => {
+        {posts.slice(0, 5).map((post) => {
           const isActive = currentPath === post.href;
           return (
             <Link
@@ -41,7 +44,7 @@ export const LatestPostsCard = ({ posts, currentSlug }: LatestPostsCardProps) =>
               href={post.href}
               className={cn(
                 "group flex items-start gap-2 rounded-md p-2 text-xs transition-all duration-200 hover:bg-muted/60",
-                isActive && "bg-muted font-medium text-primary"
+                isActive && "bg-muted font-medium text-primary",
               )}
             >
               <FileText className="mt-0.5 h-3 w-3 shrink-0 text-muted-foreground/70 group-hover:text-foreground/80" />

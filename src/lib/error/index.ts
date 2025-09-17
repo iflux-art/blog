@@ -5,9 +5,9 @@
 export type { ErrorInfo, LogOptions } from "./error-utils";
 export {
   classifyError,
-  logError,
-  handleContentError,
-  handleNetworkError,
   getUserFriendlyMessage,
   handleComponentError,
+  handleContentError,
+  handleNetworkError,
+  logError,
 } from "./error-utils";

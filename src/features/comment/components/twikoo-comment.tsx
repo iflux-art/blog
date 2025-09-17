@@ -36,9 +36,9 @@ declare global {
   }
 }
 
-import { getRandomGreeting } from "@/features/comment/lib";
-import * as React from "react";
+import type * as React from "react";
 import { useEffect, useId, useState } from "react";
+import { getRandomGreeting } from "@/features/comment/lib";
 
 /**
  * Twikoo 评论组件
@@ -67,7 +67,8 @@ export const TwikooComment: React.FC = () => {
     const path = window.location.pathname;
     /** Twikoo CDN 脚本元素 */
     const cdnScript = document.createElement("script");
-    cdnScript.src = "https://cdn.jsdelivr.net/npm/twikoo@1.6.25/dist/twikoo.all.min.js";
+    cdnScript.src =
+      "https://cdn.jsdelivr.net/npm/twikoo@1.6.25/dist/twikoo.all.min.js";
     cdnScript.async = true;
 
     /** 加载初始化脚本的回调函数 */
@@ -97,7 +98,8 @@ export const TwikooComment: React.FC = () => {
       if (cdnScript.parentNode) {
         cdnScript.parentNode.removeChild(cdnScript);
       }
-      const secondScript = document.querySelector<HTMLElement>("#twikoo-init-id");
+      const secondScript =
+        document.querySelector<HTMLElement>("#twikoo-init-id");
       if (secondScript?.parentNode) {
         secondScript.parentNode.removeChild(secondScript);
       }
@@ -114,7 +116,9 @@ export const TwikooComment: React.FC = () => {
           title="点击刷新问候语"
           onClick={() => setGreeting(getRandomGreeting())}
           type="button"
-          onKeyDown={e => e.key === "Enter" && setGreeting(getRandomGreeting())}
+          onKeyDown={(e) =>
+            e.key === "Enter" && setGreeting(getRandomGreeting())
+          }
         >
           {greeting}
         </button>
